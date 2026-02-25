@@ -38,8 +38,8 @@ const Footer = () => {
         <div className="footer-section">
           <h4>Address</h4>
           <p>
-            12 Adeola Odeku Street,<br />
-            Victoria Island, Lagos, Nigeria
+Shop 9 Famutimi Street, Victor Fagbemi Road, <br />
+            Beside Lemmy Polly Company, Aboru.
           </p>
           <p>Phone: +234 802 441 4957</p>
           <p>Email: info@sbjclothings.com</p>
@@ -65,5 +65,6 @@ const Footer = () => {
     </footer>
   );
 };
+
 
 export default Footer;
