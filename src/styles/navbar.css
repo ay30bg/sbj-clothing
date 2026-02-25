@@ -1,0 +1,458 @@
+:root {
+  --primary: #ff4d00;
+  --white: #ffffff;
+  --gray: #f8f9fa;
+  --text-dark: #222;
+  --border: #e0e0e0;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 50px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--white);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* ================= LOGO ================= */
+.logo img.logo-img {
+  height: 55px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.logo img.logo-img:hover {
+  transform: scale(1.05);
+}
+
+/* ================= DESKTOP SEARCH ================= */
+.desktop-search {
+  flex: 1;
+  max-width: 500px;
+  margin: 0 20px;
+  position: relative;
+}
+
+.search {
+  width: 100%;
+  padding: 12px 45px 12px 18px;
+  border-radius: 50px;
+  border: 1px solid var(--border);
+  background: var(--gray);
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search:focus {
+  border-color: var(--primary);
+  background: var(--white);
+  box-shadow: 0 4px 12px rgba(255, 77, 0, 0.15);
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  border: none;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  cursor: pointer;
+}
+
+.search-icon:hover {
+  color: var(--primary);
+}
+
+/* ================= DESKTOP NAV LINKS ================= */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.desktop-nav a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--text-dark);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.desktop-nav a:hover {
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* ================= CART ================= */
+.cart-link {
+  position: relative;
+  padding: 8px 12px;
+  border-radius: 50px;
+  transition: background 0.2s ease;
+}
+
+.cart-link:hover {
+  background: var(--gray);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: var(--primary);
+  color: var(--white);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================= MOBILE ICONS ================= */
+.mobile-icons {
+  display: none;
+  align-items: center;
+  gap: 15px;
+}
+
+.mobile-search-icon,
+.hamburger {
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--text-dark);
+}
+
+.mobile-search-icon:hover,
+.hamburger:hover {
+  color: var(--primary);
+}
+
+/* ================= SEARCH OVERLAY ================= */
+.search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.98);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 100px;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+
+.search-overlay-content {
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+.overlay-input {
+  width: 100%;
+  padding: 14px 50px 14px 20px;
+  border-radius: 50px;
+  border: 1px solid var(--border);
+  font-size: 16px;
+  outline: none;
+}
+
+.close-search {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  margin-top: -8px;
+  cursor: pointer;
+  color: #888;
+}
+
+.close-search:hover {
+  color: var(--primary);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ================= ASOS STYLE RIGHT SIDEBAR ================= */
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+  z-index: 998;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-sidebar {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 85%;
+  max-width: 340px;
+  height: 100%;
+  background: #fff;
+  padding: 30px 25px;
+  transition: right 0.35s cubic-bezier(0.77, 0, 0.175, 1);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.mobile-sidebar.open {
+  right: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.sidebar-header h3 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.close-btn {
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.close-btn:hover {
+  transform: rotate(90deg);
+}
+
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.sidebar-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.mobile-sidebar a {
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #111;
+  transition: 0.25s ease;
+}
+
+.mobile-sidebar a:hover {
+  color: var(--primary);
+  transform: translateX(6px);
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: #eee;
+  margin: 30px 0;
+}
+
+/* ================= SIDEBAR CART ITEM ================= */
+.sidebar-cart {
+  display: flex;
+  align-items: center;      /* vertically center icon, text, badge */
+  justify-content: space-between; /* push badge to the far right */
+  gap: 12px;                /* space between icon and text */
+  padding: 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  cursor: pointer;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.sidebar-cart:hover {
+  color: var(--primary);
+  transform: translateX(6px);
+}
+
+/* Cart badge inside sidebar cart */
+.sidebar-cart .cart-badge-sidebar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  color: var(--white);
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  padding: 2px;
+}
+
+/* Cart badge with background */
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: var(--primary); /* bright orange */
+  color: var(--white);
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Sidebar links with icons */
+.mobile-sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* space between icon & text */
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #111;
+  transition: 0.25s ease;
+}
+
+.mobile-sidebar a:hover {
+  color: var(--primary);
+  transform: translateX(6px);
+}
+
+/* ================= SIDEBAR ICONS & BADGES ================= */
+.mobile-sidebar a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* for badge alignment */
+  gap: 12px; /* space between icon & text */
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #111;
+  transition: 0.25s ease;
+  padding: 8px 0;
+}
+
+.mobile-sidebar a:hover {
+  color: var(--primary);
+  transform: translateX(6px);
+}
+
+/* Sidebar cart badge */
+.mobile-sidebar .cart-badge-sidebar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  color: var(--white);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  padding: 2px;
+}
+
+/* ================= LOGOUT BUTTON (DESKTOP) ================= */
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #ff4d00;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 77, 0, 0.3);
+}
+
+
+/* ================= LOGOUT BUTTON (MOBILE SIDEBAR) ================= */
+.mobile-sidebar button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mobile-sidebar button:hover {
+  background: #ff4d00;
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 768px) {
+
+  .navbar {
+    padding: 12px 20px;
+  }
+
+  .desktop-search {
+    display: none;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-icons {
+    display: flex;
+  }
+
+  .logo img.logo-img {
+    height: 45px;
+  }
+}

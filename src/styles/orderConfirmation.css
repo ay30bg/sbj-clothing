@@ -1,0 +1,159 @@
+:root {
+  --primary: #ff4d00;
+  --white: #ffffff;
+  --gray-light: #f8f9fa;
+  --gray-dark: #555;
+  --text-dark: #222;
+  --border: #e0e0e0;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+.order-confirmation-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.order-success {
+  background: var(--white);
+  padding: 25px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--shadow);
+  text-align: center;
+}
+
+.order-success h2 {
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.order-id {
+  font-size: 14px;
+  color: var(--gray-dark);
+}
+
+.order-summary-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.order-box {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+.order-box h3 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
+
+.order-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+.order-box ul li {
+  margin-bottom: 6px;
+}
+
+.order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+  align-items: center;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-name {
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.item-variation {
+  font-weight: 400;
+  color: var(--gray-dark);
+  font-size: 13px;
+}
+
+.item-qty {
+  font-size: 13px;
+  color: var(--gray-dark);
+}
+
+.item-price {
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.total {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.order-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.btn-home {
+  text-decoration: none;
+  background: var(--primary);
+  color: white;
+  width: 100%;
+  text-align: center;
+  padding: 12px 25px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-home:hover {
+  background: #e63c00;
+}
+
+.order-empty {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.order-empty h2 {
+  font-size: 24px;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.order-empty p {
+  font-size: 16px;
+  color: var(--gray-dark);
+}
+
+.order-empty .btn-home {
+  margin-top: 15px;
+}
+
