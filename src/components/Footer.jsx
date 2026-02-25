@@ -42,7 +42,7 @@ Shop 9 Famutimi Street, Victor Fagbemi Road, <br />
             Beside Lemmy Polly Company, Aboru.
           </p>
           <p>Phone: +234 802 441 4957</p>
-          <p>Email: info@sbjclothings.com</p>
+          <p>Email: sbjclothing349@gmail.com</p>
         </div>
 
         {/* NEWSLETTER */}
@@ -68,3 +68,4 @@ Shop 9 Famutimi Street, Victor Fagbemi Road, <br />
 
 
 export default Footer;
+
