@@ -149,7 +149,6 @@ export default function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -181,7 +180,7 @@ export default function Signup() {
       }
 
       localStorage.setItem("token", data.token);
-      login(data.user, rememberMe);
+      login(data.user); // rememberMe removed
 
       navigate("/");
     } catch (err) {
@@ -250,8 +249,14 @@ export default function Signup() {
             </div>
           </div>
 
+          <p className="privacy-text" style={{ fontSize: "0.85rem", margin: "10px 0" }}>
+            By clicking Create Account, I agree to the{" "}
+            <Link to="/privacy-policy">Privacy Policy</Link> and{" "}
+            <Link to="/terms-of-service">Terms of Service</Link>.
+          </p>
+
           <button className="login-btn" type="submit" disabled={loading}>
-            {loading ? <span className="spinner"></span> : "Sign Up"}
+            {loading ? <span className="spinner"></span> : "Create Account"}
           </button>
         </form>
 
@@ -264,4 +269,3 @@ export default function Signup() {
     </div>
   );
 }
-
