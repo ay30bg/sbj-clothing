@@ -141,7 +141,7 @@ const products = [
     shipping: "Delivery within 3–5 days"
   },
   {
-    id: 8,
+    id: 9,
     name: "Black Beaded Heels",
     price: 40000,
     oldPrice: 50000,
@@ -157,7 +157,7 @@ const products = [
     shipping: "Delivery within 3–5 days"
   },
   {
-    id: 9,
+    id: 10,
     name: "Gold Low Heels",
     price: 40000,
     oldPrice: 50000,
@@ -173,7 +173,7 @@ const products = [
     shipping: "Delivery within 3–5 days"
   },
   {
-    id: 10,
+    id: 11,
     name: "Brown Swiss Luxe Handcut with 3D Applique",
     price: 160000,
     oldPrice: 200000,
@@ -187,7 +187,7 @@ const products = [
     shipping: "Delivery within 3–5 days"
   },
   {
-    id: 11,
+    id: 12,
     name: "Green Swiss Luxe Handcut with 3D Applique",
     price: 160000,
     oldPrice: 200000,
@@ -201,7 +201,7 @@ const products = [
     shipping: "Delivery within 3–5 days"
   },
   {
-    id: 12,
+    id: 13,
     name: "Lavender Swiss Luxe Handcut with 3D Applique",
     price: 160000,
     oldPrice: 200000,
@@ -215,7 +215,7 @@ const products = [
     shipping: "Delivery within 3–5 days"
   },
   {
-    id: 13,
+    id: 14,
     name: "Lilac Swiss Luxe Handcut with 3D Applique",
     price: 160000,
     oldPrice: 200000,
@@ -229,7 +229,7 @@ const products = [
     shipping: "Delivery within 3–5 days"
   },
   {
-    id: 14,
+    id: 15,
     name: "Peach Swiss Luxe Handcut with 3D Applique",
     price: 160000,
     oldPrice: 200000,
@@ -243,7 +243,7 @@ const products = [
     shipping: "Delivery within 3–5 days"
   },
   {
-    id: 15,
+    id: 16,
     name: "Purple Swiss Luxe Handcut with 3D Applique",
     price: 160000,
     oldPrice: 200000,
@@ -257,7 +257,7 @@ const products = [
     shipping: "Delivery within 3–5 days"
   },
   {
-    id: 16,
+    id: 17,
     name: "All White Big Swiss Dry Lace",
     price: 200000,
     oldPrice: 400000,
@@ -271,7 +271,7 @@ const products = [
     shipping: "Delivery within 3–5 days"
   },
   {
-    id: 17,
+    id: 18,
     name: "Quaballa Classic Patent Slides",
     price: 35000,
     oldPrice: 40000,
@@ -285,7 +285,7 @@ const products = [
     shipping: "Delivery within 3–5 days"
   },
   {
-    id: 18,
+    id: 19,
     name: "La Feminina Gold Slingback Pointed Heels",
     price: 45000,
     oldPrice: 60000,
