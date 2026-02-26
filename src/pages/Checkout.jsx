@@ -485,7 +485,7 @@ export default function Checkout() {
 
   const orderTotal = itemsTotal + DELIVERY_FEE;
 
-  // Load saved guest shipping
+  // Load guest shipping
   useEffect(() => {
     const savedShipping = sessionStorage.getItem("guestShipping");
     if (savedShipping) {
@@ -517,9 +517,66 @@ export default function Checkout() {
     );
   }
 
-  // ==========================
-  // PAYSTACK PAYMENT
-  // ==========================
+  // ================================
+  // VERIFY PAYMENT (ASYNC FUNCTION)
+  // ================================
+  const verifyPayment = async (reference) => {
+    try {
+      const orderPayload = {
+        user: user ? user.email : "guest",
+        shipping,
+        items: cartItems.map((item) => ({
+          ...item,
+          qty: item.quantity,
+        })),
+        totals: {
+          itemsTotal,
+          delivery: DELIVERY_FEE,
+          orderTotal,
+        },
+      };
+
+      const verifyRes = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/orders/verify-payment`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            reference,
+            orderData: orderPayload,
+          }),
+        }
+      );
+
+      const data = await verifyRes.json();
+
+      if (!verifyRes.ok) {
+        throw new Error(data.message || "Verification failed");
+      }
+
+      clearCart();
+
+      if (!user) {
+        sessionStorage.removeItem("guestShipping");
+      }
+
+      navigate("/order-confirmation", {
+        state: data.order,
+      });
+
+    } catch (error) {
+      alert("Payment verification failed.");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ================================
+  // PAYSTACK INITIALIZATION
+  // ================================
   const handlePaystackPayment = () => {
     if (
       !shipping.fullName ||
@@ -532,7 +589,7 @@ export default function Checkout() {
     }
 
     if (!window.PaystackPop) {
-      alert("Payment service unavailable. Please refresh.");
+      alert("Payment service unavailable. Refresh page.");
       return;
     }
 
@@ -545,58 +602,9 @@ export default function Checkout() {
       currency: "NGN",
       ref: `SBJ_${Date.now()}`,
 
-      callback: async function (response) {
-        const orderPayload = {
-          user: user ? user.email : "guest",
-          shipping,
-          items: cartItems.map((item) => ({
-            ...item,
-            qty: item.quantity,
-          })),
-          totals: {
-            itemsTotal,
-            delivery: DELIVERY_FEE,
-            orderTotal,
-          },
-        };
-
-        try {
-          const verifyRes = await fetch(
-            `${process.env.REACT_APP_API_URL}/api/orders/verify-payment`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                reference: response.reference,
-                orderData: orderPayload,
-              }),
-            }
-          );
-
-          const data = await verifyRes.json();
-
-          if (!verifyRes.ok) {
-            throw new Error(data.message || "Verification failed");
-          }
-
-          clearCart();
-
-          if (!user) {
-            sessionStorage.removeItem("guestShipping");
-          }
-
-          navigate("/order-confirmation", {
-            state: data.order,
-          });
-
-        } catch (error) {
-          alert("Payment verification failed.");
-          console.error(error);
-        } finally {
-          setLoading(false);
-        }
+      callback: function (response) {
+        // MUST NOT be async
+        verifyPayment(response.reference);
       },
 
       onClose: function () {
@@ -665,7 +673,6 @@ export default function Checkout() {
 
         <div className="checkout-box">
           <h2>Review Your Order</h2>
-
           <div className="checkout-items">
             {cartItems.map((item) => (
               <div key={item.id} className="checkout-item">
