@@ -221,6 +221,11 @@
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
+.section-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
   .categories{
     padding: 20px;
   }
@@ -328,5 +333,6 @@
     font-size: 12px;
   }
 }
+
 
 
