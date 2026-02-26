@@ -158,7 +158,7 @@ const products = [
   },
   {
     id: 10,
-    name: "Gold Low Heels",
+    name: "Golden Luxe Embellished Slingback Heels",
     price: 40000,
     oldPrice: 50000,
     categories: ["Shoes", "Women"],
@@ -167,7 +167,7 @@ const products = [
     stock: 12,
     bestSeller: true,
     image: image9,
-    description: "Elegant black beaded heels with a sophisticated design.",
+    description: "Step into elegance with the Golden Luxe Embellished Slingback Heels. Designed with a sleek pointed toe silhouette, these stunning gold heels feature a textured metallic finish that exudes sophistication and glamour. The front is beautifully adorned with a sparkling crystal embellishment, adding a refined statement touch to your look.",
     colors: ["Black", "Silver"],
     sizes: ["6", "7", "8", "9", "10"],
     shipping: "Delivery within 3–5 days"
@@ -301,3 +301,4 @@ const products = [
 ];
 
 export default products;
+
