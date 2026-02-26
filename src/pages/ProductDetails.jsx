@@ -1,234 +1,306 @@
-import { useParams, Link } from "react-router-dom";
+// import { useParams, Link } from "react-router-dom";
+// import { useCart } from "../context/CartContext";
+// import products from "../data/products";
+// import { useState, useEffect } from "react";
+// import ProductCard from "../components/ProductCard";
+// import "../styles/productDetails.css";
+
+// const ProductDetails = () => {
+//   const { id } = useParams();
+//   const { addToCart } = useCart();
+
+//   const [loading, setLoading] = useState(false);
+//   const [quantity, setQuantity] = useState(1);
+//   const [added, setAdded] = useState(false);
+//   const [selectedSize, setSelectedSize] = useState(null);
+//   const [selectedColor, setSelectedColor] = useState(null);
+
+//   const product = products.find((p) => p.id.toString() === id);
+
+//   // ✅ Related products (same category)
+//   const relatedProducts = products.filter(
+//     (p) =>
+//       p.id !== product?.id &&
+//       JSON.stringify(p.categories) === JSON.stringify(product?.categories)
+//   );
+
+//   // ✅ Dynamic page title
+//   useEffect(() => {
+//     if (product) {
+//       document.title = `${product.name} - SBJ Clothings`;
+//     } else {
+//       document.title = "Product Not Found - SBJ Clothings";
+//     }
+//   }, [product]);
+
+//   if (!product) {
+//     return (
+//       <div className="pd-not-found">
+//         <h2>Product Not Found</h2>
+//         <p>The product you are looking for does not exist.</p>
+//       </div>
+//     );
+//   }
+
+//   const handleAddToCart = async () => {
+//     if (product.sizes?.length > 0 && !selectedSize) {
+//       alert("Please select a size");
+//       return;
+//     }
+
+//     if (product.colors?.length > 0 && !selectedColor) {
+//       alert("Please select a color");
+//       return;
+//     }
+
+//     setLoading(true);
+//     setAdded(false);
+
+//     await addToCart({
+//       ...product,
+//       quantity,
+//       selectedSize,
+//       selectedColor,
+//     });
+
+//     setTimeout(() => {
+//       setLoading(false);
+//       setAdded(true);
+//       setTimeout(() => setAdded(false), 2000);
+//     }, 500);
+//   };
+
+//   const outOfStock = product.stock === 0;
+
+//   return (
+//     <div className="pd-page">
+
+//       {/* ================= MAIN PRODUCT ================= */}
+//       <div className="pd-container">
+
+//         {/* LEFT IMAGE */}
+//         <div className="pd-gallery">
+//           <img src={product.image} alt={product.name} />
+//           {product.discount && (
+//             <span className="pd-discount-badge">-{product.discount}%</span>
+//           )}
+//         </div>
+
+//         {/* RIGHT INFO */}
+//         <div className="pd-info">
+//           <h1 className="pd-title">{product.name}</h1>
+
+//           <div className="pd-category">
+//             Category:{" "}
+//             <strong>
+//               {Array.isArray(product.categories)
+//                 ? product.categories.map((cat, index) => (
+//                     <span key={cat}>
+//                       <Link to={`/category/${cat.toLowerCase()}`}>{cat}</Link>
+//                       {index < product.categories.length - 1 && ", "}
+//                     </span>
+//                   ))
+//                 : (
+//                   <Link to={`/category/${product.categories.toLowerCase()}`}>
+//                     {product.categories}
+//                   </Link>
+//                 )}
+//             </strong>
+//           </div>
+
+//           <div className={`pd-stock ${product.stock > 0 ? "in-stock" : "out-stock"}`}>
+//             {product.stock > 0
+//               ? `In Stock (${product.stock} available)`
+//               : "Out of Stock"}
+//           </div>
+
+//           <div className="pd-rating">
+//             {"⭐".repeat(Math.floor(product.rating))}
+//             {product.rating % 1 >= 0.5 && "☆"}
+//             <span> ({product.reviews} reviews)</span>
+//           </div>
+
+//           <div className="pd-price-section">
+//             <span className="pd-price">
+//               ₦{product.price.toLocaleString()}
+//             </span>
+//             {product.oldPrice && (
+//               <span className="pd-old-price">
+//                 ₦{product.oldPrice.toLocaleString()}
+//               </span>
+//             )}
+//           </div>
+
+//           <p className="pd-description">{product.description}</p>
+
+//           {/* Sizes */}
+//           {product.sizes?.length > 0 && (
+//             <div className="pd-sizes">
+//               <span>Size:</span>
+//               <div className="pd-options">
+//                 {product.sizes.map((size) => (
+//                   <button
+//                     key={size}
+//                     className={selectedSize === size ? "selected" : ""}
+//                     onClick={() => setSelectedSize(size)}
+//                   >
+//                     {size}
+//                   </button>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
+
+//           {/* Colors */}
+//           {product.colors?.length > 0 && (
+//             <div className="pd-colors">
+//               <span>Color:</span>
+//               <div className="pd-options">
+//                 {product.colors.map((color) => (
+//                   <button
+//                     key={color}
+//                     style={{ backgroundColor: color.toLowerCase() }}
+//                     className={selectedColor === color ? "selected" : ""}
+//                     onClick={() => setSelectedColor(color)}
+//                   ></button>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
+
+//           {/* Quantity */}
+//           <div className="pd-quantity">
+//             <button
+//               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+//               disabled={outOfStock}
+//             >
+//               -
+//             </button>
+//             <span>{quantity}</span>
+//             <button
+//               onClick={() => setQuantity((q) => q + 1)}
+//               disabled={outOfStock}
+//             >
+//               +
+//             </button>
+//           </div>
+
+//           {/* Add to Cart */}
+//           <div className="pd-action-buttons">
+//             <button
+//               className="pd-add-to-cart"
+//               onClick={handleAddToCart}
+//               disabled={loading || outOfStock}
+//             >
+//               {loading ? (
+//                 <span className="pd-spinner"></span>
+//               ) : (
+//                 `Add ${quantity} to Cart`
+//               )}
+//             </button>
+
+//             {added && (
+//               <div className="pd-added-message">
+//                 ✅ Item added to cart
+//               </div>
+//             )}
+//           </div>
+
+//           <div className="pd-extra-info">
+//             {product.shipping && <p>{product.shipping}</p>}
+//             <p>🔒 Secure payment guaranteed</p>
+//             <p>↩ 7-day return policy</p>
+//           </div>
+
+//         </div>
+//       </div>
+
+//       {/* ================= RELATED PRODUCTS (OUTSIDE pd-container) ================= */}
+//       {relatedProducts.length > 0 && (
+//         <div className="pd-related-section">
+//           <h2>Related Products</h2>
+//           <div className="pd-related-grid">
+//             {relatedProducts.slice(0, 4).map((item) => (
+//               <ProductCard key={item.id} product={item} />
+//             ))}
+//           </div>
+//         </div>
+//       )}
+
+//     </div>
+//   );
+// };
+
+// export default ProductDetails;
+
+
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import products from "../data/products";
-import { useState, useEffect } from "react";
-import ProductCard from "../components/ProductCard";
-import "../styles/productDetails.css";
+import "../styles/product.css";
 
-const ProductDetails = () => {
-  const { id } = useParams();
+const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
-
   const [loading, setLoading] = useState(false);
-  const [quantity, setQuantity] = useState(1);
-  const [added, setAdded] = useState(false);
-  const [selectedSize, setSelectedSize] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(null);
 
-  const product = products.find((p) => p.id.toString() === id);
-
-  // ✅ Related products (same category)
-  const relatedProducts = products.filter(
-    (p) =>
-      p.id !== product?.id &&
-      JSON.stringify(p.categories) === JSON.stringify(product?.categories)
-  );
-
-  // ✅ Dynamic page title
-  useEffect(() => {
-    if (product) {
-      document.title = `${product.name} - SBJ Clothings`;
-    } else {
-      document.title = "Product Not Found - SBJ Clothings";
-    }
-  }, [product]);
-
-  if (!product) {
-    return (
-      <div className="pd-not-found">
-        <h2>Product Not Found</h2>
-        <p>The product you are looking for does not exist.</p>
-      </div>
-    );
-  }
-
-  const handleAddToCart = async () => {
-    if (product.sizes?.length > 0 && !selectedSize) {
-      alert("Please select a size");
-      return;
-    }
-
-    if (product.colors?.length > 0 && !selectedColor) {
-      alert("Please select a color");
-      return;
-    }
-
+  const handleAddToCart = async (e) => {
+    e.stopPropagation();
     setLoading(true);
-    setAdded(false);
 
-    await addToCart({
+    const productWithDefaults = {
       ...product,
-      quantity,
-      selectedSize,
-      selectedColor,
-    });
+      quantity: 1,
+      selectedSize: product.sizes ? product.sizes[0] : null,
+      selectedColor: product.colors ? product.colors[0] : null,
+    };
 
-    setTimeout(() => {
-      setLoading(false);
-      setAdded(true);
-      setTimeout(() => setAdded(false), 2000);
-    }, 500);
+    await addToCart(productWithDefaults);
+    setTimeout(() => setLoading(false), 500);
   };
 
-  const outOfStock = product.stock === 0;
+  // Use first image from images array
+  const mainImage =
+    product.images && product.images.length > 0
+      ? product.images[0]
+      : "/placeholder.png"; // fallback image (optional)
 
   return (
-    <div className="pd-page">
+    <div className="product-card">
+      <Link to={`/product/${product.id}`} className="product-link">
+        {product.discount && (
+          <span className="discount-badge">-{product.discount}%</span>
+        )}
 
-      {/* ================= MAIN PRODUCT ================= */}
-      <div className="pd-container">
+        <img src={mainImage} alt={product.name} />
 
-        {/* LEFT IMAGE */}
-        <div className="pd-gallery">
-          <img src={product.image} alt={product.name} />
-          {product.discount && (
-            <span className="pd-discount-badge">-{product.discount}%</span>
-          )}
-        </div>
+        <h4>{product.name}</h4>
 
-        {/* RIGHT INFO */}
-        <div className="pd-info">
-          <h1 className="pd-title">{product.name}</h1>
+        {product.description && (
+          <p className="product-desc">{product.description}</p>
+        )}
 
-          <div className="pd-category">
-            Category:{" "}
-            <strong>
-              {Array.isArray(product.categories)
-                ? product.categories.map((cat, index) => (
-                    <span key={cat}>
-                      <Link to={`/category/${cat.toLowerCase()}`}>{cat}</Link>
-                      {index < product.categories.length - 1 && ", "}
-                    </span>
-                  ))
-                : (
-                  <Link to={`/category/${product.categories.toLowerCase()}`}>
-                    {product.categories}
-                  </Link>
-                )}
-            </strong>
-          </div>
+        <div className="price-section">
+          <span className="price">
+            ₦{product.price.toLocaleString()}
+          </span>
 
-          <div className={`pd-stock ${product.stock > 0 ? "in-stock" : "out-stock"}`}>
-            {product.stock > 0
-              ? `In Stock (${product.stock} available)`
-              : "Out of Stock"}
-          </div>
-
-          <div className="pd-rating">
-            {"⭐".repeat(Math.floor(product.rating))}
-            {product.rating % 1 >= 0.5 && "☆"}
-            <span> ({product.reviews} reviews)</span>
-          </div>
-
-          <div className="pd-price-section">
-            <span className="pd-price">
-              ₦{product.price.toLocaleString()}
+          {product.oldPrice && (
+            <span className="old-price">
+              ₦{product.oldPrice.toLocaleString()}
             </span>
-            {product.oldPrice && (
-              <span className="pd-old-price">
-                ₦{product.oldPrice.toLocaleString()}
-              </span>
-            )}
-          </div>
-
-          <p className="pd-description">{product.description}</p>
-
-          {/* Sizes */}
-          {product.sizes?.length > 0 && (
-            <div className="pd-sizes">
-              <span>Size:</span>
-              <div className="pd-options">
-                {product.sizes.map((size) => (
-                  <button
-                    key={size}
-                    className={selectedSize === size ? "selected" : ""}
-                    onClick={() => setSelectedSize(size)}
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-            </div>
           )}
-
-          {/* Colors */}
-          {product.colors?.length > 0 && (
-            <div className="pd-colors">
-              <span>Color:</span>
-              <div className="pd-options">
-                {product.colors.map((color) => (
-                  <button
-                    key={color}
-                    style={{ backgroundColor: color.toLowerCase() }}
-                    className={selectedColor === color ? "selected" : ""}
-                    onClick={() => setSelectedColor(color)}
-                  ></button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Quantity */}
-          <div className="pd-quantity">
-            <button
-              onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-              disabled={outOfStock}
-            >
-              -
-            </button>
-            <span>{quantity}</span>
-            <button
-              onClick={() => setQuantity((q) => q + 1)}
-              disabled={outOfStock}
-            >
-              +
-            </button>
-          </div>
-
-          {/* Add to Cart */}
-          <div className="pd-action-buttons">
-            <button
-              className="pd-add-to-cart"
-              onClick={handleAddToCart}
-              disabled={loading || outOfStock}
-            >
-              {loading ? (
-                <span className="pd-spinner"></span>
-              ) : (
-                `Add ${quantity} to Cart`
-              )}
-            </button>
-
-            {added && (
-              <div className="pd-added-message">
-                ✅ Item added to cart
-              </div>
-            )}
-          </div>
-
-          <div className="pd-extra-info">
-            {product.shipping && <p>{product.shipping}</p>}
-            <p>🔒 Secure payment guaranteed</p>
-            <p>↩ 7-day return policy</p>
-          </div>
-
         </div>
-      </div>
+      </Link>
 
-      {/* ================= RELATED PRODUCTS (OUTSIDE pd-container) ================= */}
-      {relatedProducts.length > 0 && (
-        <div className="pd-related-section">
-          <h2>Related Products</h2>
-          <div className="pd-related-grid">
-            {relatedProducts.slice(0, 4).map((item) => (
-              <ProductCard key={item.id} product={item} />
-            ))}
-          </div>
-        </div>
-      )}
-
+      <button
+        className="add-to-cart"
+        onClick={handleAddToCart}
+        disabled={loading}
+      >
+        {loading ? <span className="spinner"></span> : "Add to Cart"}
+      </button>
     </div>
   );
 };
 
-export default ProductDetails;
+export default ProductCard;
