@@ -94,7 +94,7 @@ const products = [
   },
   {
     id: 6,
-    name: "Gold High Heels",
+    name: "Golden Regal Embellished Pointed-Toe Heels",
     price: 40000,
     oldPrice: 50000,
     categories: ["Shoes", "Women"],
@@ -103,8 +103,8 @@ const products = [
     stock: 18,
     bestSeller: true,
     image: image6,
-    description: "Lightweight running shoes with breathable upper and cushioned sole.",
-    colors: ["Black", "White", "Red"],
+    description: "Step into elegance with the Golden Regal Embellished Heels, designed for women who love to make a statement. Crafted in a shimmering gold finish, these heels feature a sleek pointed toe and a stunning crystal-leaf embellishment that adds a touch of royalty and sophistication.",
+    colors: ["Gold"],
     sizes: ["6", "7", "8", "9", "10", "11"],
     shipping: "Delivery within 3–5 days"
   },
@@ -120,7 +120,7 @@ const products = [
     bestSeller: true,
     image: image7,
     description: "Make a bold statement with the Midnight Royale Embellished Half-Moon Handbag. Designed in a unique semi-circular silhouette, this elegant black handbag features intricate gold beadwork and radiant sunburst crystal embellishments that add a touch of glamour and sophistication. The structured design is complemented by sturdy braided top handles for a comfortable and stylish grip.",
-    colors: ["Black", "White", "Red"],
+    colors: ["Black"],
     sizes: ["6", "7", "8", "9", "10", "11"],
     shipping: "Delivery within 3–5 days"
   },
@@ -136,7 +136,7 @@ const products = [
     bestSeller: false,
     image: image19,
     description: "Step into effortless style with the Tunda Stylish Camo Braided Slide Sandals. Designed with a trendy camouflage-print sole and soft nude braided straps, these sandals blend comfort with bold fashion. The square-toe design adds a modern edge, while the cushioned footbed ensures all-day comfort.",
-    colors: ["Black", "Silver"],
+    colors: ["Nude"],
     sizes: ["6", "7", "8", "9", "10"],
     shipping: "Delivery within 3–5 days"
   },
@@ -161,14 +161,14 @@ const products = [
     name: "Golden Luxe Embellished Slingback Heels",
     price: 40000,
     oldPrice: 50000,
-    categories: ["Shoes", "Women"],
+    categories: ["Shoes", "Women"], 
     rating: 4.9,
     reviews: 30,
     stock: 12,
     bestSeller: true,
     image: image9,
     description: "Step into elegance with the Golden Luxe Embellished Slingback Heels. Designed with a sleek pointed toe silhouette, these stunning gold heels feature a textured metallic finish that exudes sophistication and glamour. The front is beautifully adorned with a sparkling crystal embellishment, adding a refined statement touch to your look.",
-    colors: ["Black", "Silver"],
+    colors: ["Gold"],
     sizes: ["6", "7", "8", "9", "10"],
     shipping: "Delivery within 3–5 days"
   },
@@ -301,4 +301,5 @@ const products = [
 ];
 
 export default products;
+
 
