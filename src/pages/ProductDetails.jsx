@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import products from "../data/products";
 import { useState, useEffect } from "react";
+import ProductCard from "../components/ProductCard";
 import "../styles/productDetails.css";
 
 const ProductDetails = () => {
@@ -11,11 +12,17 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
-
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
 
   const product = products.find((p) => p.id.toString() === id);
+
+  // ✅ Related products (same category)
+  const relatedProducts = products.filter(
+    (p) =>
+      p.id !== product?.id &&
+      JSON.stringify(p.categories) === JSON.stringify(product?.categories)
+  );
 
   // ✅ Dynamic page title
   useEffect(() => {
@@ -36,11 +43,11 @@ const ProductDetails = () => {
   }
 
   const handleAddToCart = async () => {
-    // Require selection only if options exist
     if (product.sizes?.length > 0 && !selectedSize) {
       alert("Please select a size");
       return;
     }
+
     if (product.colors?.length > 0 && !selectedColor) {
       alert("Please select a color");
       return;
@@ -67,9 +74,11 @@ const ProductDetails = () => {
 
   return (
     <div className="pd-page">
+
+      {/* ================= MAIN PRODUCT ================= */}
       <div className="pd-container">
 
-        {/* LEFT: IMAGE */}
+        {/* LEFT IMAGE */}
         <div className="pd-gallery">
           <img src={product.image} alt={product.name} />
           {product.discount && (
@@ -77,11 +86,10 @@ const ProductDetails = () => {
           )}
         </div>
 
-        {/* RIGHT: INFO */}
+        {/* RIGHT INFO */}
         <div className="pd-info">
           <h1 className="pd-title">{product.name}</h1>
 
-          {/* CATEGORY */}
           <div className="pd-category">
             Category:{" "}
             <strong>
@@ -92,34 +100,40 @@ const ProductDetails = () => {
                       {index < product.categories.length - 1 && ", "}
                     </span>
                   ))
-                : <Link to={`/category/${product.categories.toLowerCase()}`}>{product.categories}</Link>}
+                : (
+                  <Link to={`/category/${product.categories.toLowerCase()}`}>
+                    {product.categories}
+                  </Link>
+                )}
             </strong>
           </div>
 
-          {/* STOCK STATUS */}
           <div className={`pd-stock ${product.stock > 0 ? "in-stock" : "out-stock"}`}>
-            {product.stock > 0 ? `In Stock (${product.stock} available)` : "Out of Stock"}
+            {product.stock > 0
+              ? `In Stock (${product.stock} available)`
+              : "Out of Stock"}
           </div>
 
-          {/* RATING */}
           <div className="pd-rating">
             {"⭐".repeat(Math.floor(product.rating))}
             {product.rating % 1 >= 0.5 && "☆"}
-            <span>({product.reviews} reviews)</span>
+            <span> ({product.reviews} reviews)</span>
           </div>
 
-          {/* PRICE */}
           <div className="pd-price-section">
-            <span className="pd-price">₦{product.price.toLocaleString()}</span>
+            <span className="pd-price">
+              ₦{product.price.toLocaleString()}
+            </span>
             {product.oldPrice && (
-              <span className="pd-old-price">₦{product.oldPrice.toLocaleString()}</span>
+              <span className="pd-old-price">
+                ₦{product.oldPrice.toLocaleString()}
+              </span>
             )}
           </div>
 
-          {/* DESCRIPTION */}
           <p className="pd-description">{product.description}</p>
 
-          {/* SIZES */}
+          {/* Sizes */}
           {product.sizes?.length > 0 && (
             <div className="pd-sizes">
               <span>Size:</span>
@@ -137,7 +151,7 @@ const ProductDetails = () => {
             </div>
           )}
 
-          {/* COLORS */}
+          {/* Colors */}
           {product.colors?.length > 0 && (
             <div className="pd-colors">
               <span>Color:</span>
@@ -154,7 +168,7 @@ const ProductDetails = () => {
             </div>
           )}
 
-          {/* QUANTITY */}
+          {/* Quantity */}
           <div className="pd-quantity">
             <button
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -171,19 +185,27 @@ const ProductDetails = () => {
             </button>
           </div>
 
-          {/* ADD TO CART */}
+          {/* Add to Cart */}
           <div className="pd-action-buttons">
             <button
               className="pd-add-to-cart"
               onClick={handleAddToCart}
               disabled={loading || outOfStock}
             >
-              {loading ? <span className="pd-spinner"></span> : `Add ${quantity} to Cart`}
+              {loading ? (
+                <span className="pd-spinner"></span>
+              ) : (
+                `Add ${quantity} to Cart`
+              )}
             </button>
-            {added && <div className="pd-added-message">✅ Item added to cart</div>}
+
+            {added && (
+              <div className="pd-added-message">
+                ✅ Item added to cart
+              </div>
+            )}
           </div>
 
-          {/* EXTRA INFO */}
           <div className="pd-extra-info">
             {product.shipping && <p>{product.shipping}</p>}
             <p>🔒 Secure payment guaranteed</p>
@@ -192,6 +214,19 @@ const ProductDetails = () => {
 
         </div>
       </div>
+
+      {/* ================= RELATED PRODUCTS (OUTSIDE pd-container) ================= */}
+      {relatedProducts.length > 0 && (
+        <div className="pd-related-section">
+          <h2>Related Products</h2>
+          <div className="pd-related-grid">
+            {relatedProducts.slice(0, 4).map((item) => (
+              <ProductCard key={item.id} product={item} />
+            ))}
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
