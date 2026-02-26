@@ -1,6 +1,193 @@
+// // import React, { useState, useEffect } from "react";
+// // import { useCart } from "../context/CartContext"; 
+// // import { useAuth } from "../context/AuthContext"; 
+// // import { useNavigate } from "react-router-dom";
+// // import "../styles/checkout.css";
+
+// // export default function Checkout() {
+// //   const { cartItems, clearCart } = useCart();
+// //   const { user } = useAuth();
+// //   const navigate = useNavigate();
+
+// //   const [shipping, setShipping] = useState({
+// //     fullName: "",
+// //     address: "",
+// //     city: "",
+// //     postalCode: "",
+// //     phone: "",
+// //   });
+
+// //   const DELIVERY_FEE = 7000;
+// //   const itemsTotal = cartItems.reduce(
+// //     (sum, item) => sum + item.price * item.quantity,
+// //     0
+// //   );
+// //   const orderTotal = itemsTotal + DELIVERY_FEE;
+
+// //   // Load saved shipping info (guest)
+// //   useEffect(() => {
+// //     const savedShipping = sessionStorage.getItem("guestShipping");
+// //     if (savedShipping) {
+// //       setShipping(JSON.parse(savedShipping));
+// //     }
+// //   }, []);
+
+// //   // ✅ Dynamic page title
+// //   useEffect(() => {
+// //     document.title = user ? `Checkout - ${user.email}` : "Checkout - Guest";
+// //   }, [user]);
+
+// //   const handleInputChange = (e) => {
+// //     const updated = { ...shipping, [e.target.name]: e.target.value };
+// //     setShipping(updated);
+
+// //     // Save guest shipping info temporarily
+// //     if (!user) {
+// //       sessionStorage.setItem("guestShipping", JSON.stringify(updated));
+// //     }
+// //   };
+
+// //   if (cartItems.length === 0) {
+// //     return (
+// //       <div className="checkout-container empty">
+// //         <p>Your cart is empty.</p>
+// //       </div>
+// //     );
+// //   }
+
+// //   const placeOrder = () => {
+// //     let userIdentifier = user ? user.email : null;
+// //     if (!userIdentifier) {
+// //       let guestId = sessionStorage.getItem("guestId");
+// //       if (!guestId) {
+// //         guestId = `GUEST${Date.now()}`;
+// //         sessionStorage.setItem("guestId", guestId);
+// //       }
+// //       userIdentifier = guestId;
+// //     }
+
+// //     const orderData = {
+// //       user: userIdentifier,
+// //       shipping,
+// //       items: cartItems.map(item => ({ ...item, qty: item.quantity })),
+// //       totals: { itemsTotal, delivery: DELIVERY_FEE, orderTotal },
+// //       paymentRef: `ORDER${Date.now()}`,
+// //       isGuest: !user,
+// //     };
+
+// //     sessionStorage.setItem("lastOrder", JSON.stringify(orderData));
+// //     clearCart();
+// //     if (!user) sessionStorage.removeItem("guestShipping");
+// //     navigate("/order-confirmation", { state: orderData });
+// //   };
+
+// //   return (
+// //     <div className="checkout-container">
+// //       <div className="checkout-left">
+// //         <div className="checkout-box">
+// //           <h2>Shipping Details</h2>
+// //           <form className="shipping-form" onSubmit={(e) => e.preventDefault()}>
+// //             <input
+// //               type="text"
+// //               name="fullName"
+// //               placeholder="Full Name *"
+// //               value={shipping.fullName}
+// //               onChange={handleInputChange}
+// //             />
+// //             <input
+// //               type="text"
+// //               name="address"
+// //               placeholder="Street Address *"
+// //               value={shipping.address}
+// //               onChange={handleInputChange}
+// //             />
+// //             <input
+// //               type="text"
+// //               name="city"
+// //               placeholder="City *"
+// //               value={shipping.city}
+// //               onChange={handleInputChange}
+// //             />
+// //             <input
+// //               type="text"
+// //               name="postalCode"
+// //               placeholder="Postal Code"
+// //               value={shipping.postalCode}
+// //               onChange={handleInputChange}
+// //             />
+// //             <input
+// //               type="text"
+// //               name="phone"
+// //               placeholder="Phone Number *"
+// //               value={shipping.phone}
+// //               onChange={handleInputChange}
+// //             />
+// //           </form>
+// //         </div>
+
+// //         <div className="checkout-box">
+// //           <h2>Review Your Order</h2>
+// //           <div className="checkout-items">
+// //             {cartItems.map((item) => (
+// //               <div key={item.id} className="checkout-item">
+// //                 <div className="checkout-item-info">
+// //                   <span className="item-name">{item.name}</span>
+
+// //                   {/* Variations */}
+// //                   {item.selectedSize && (
+// //                     <span className="item-variation">
+// //                       Size: <strong>{item.selectedSize}</strong>
+// //                     </span>
+// //                   )}
+// //                   {item.selectedColor && (
+// //                     <span className="item-variation">
+// //                       Color: <strong>{item.selectedColor}</strong>
+// //                       <span
+// //                         className="color-swatch"
+// //                         style={{ backgroundColor: item.selectedColor }}
+// //                       />
+// //                     </span>
+// //                   )}
+
+// //                   <span className="item-qty">Qty: {item.quantity}</span>
+// //                 </div>
+// //                 <span className="item-price">
+// //                   ₦{(item.price * item.quantity).toLocaleString()}
+// //                 </span>
+// //               </div>
+// //             ))}
+// //           </div>
+// //         </div>
+// //       </div>
+
+// //       <div className="checkout-summary">
+// //         <h3>Order Summary</h3>
+// //         <p>Items: <span>₦{itemsTotal.toLocaleString()}</span></p>
+// //         <p>Delivery: <span>₦{DELIVERY_FEE.toLocaleString()}</span></p>
+// //         <h3 className="summary-total">
+// //           Order Total: <span>₦{orderTotal.toLocaleString()}</span>
+// //         </h3>
+
+// //         <button className="place-order-btn" onClick={placeOrder}>
+// //           Place Order
+// //         </button>
+
+// //         {!user && (
+// //           <p className="guest-note">
+// //             You are checking out as a guest. Create an account for faster checkout next time.
+// //           </p>
+// //         )}
+
+// //         <div className="secure-checkout">🔒 Secure checkout guaranteed</div>
+// //       </div>
+// //     </div>
+// //   );
+
+// // }
+
 // import React, { useState, useEffect } from "react";
-// import { useCart } from "../context/CartContext"; 
-// import { useAuth } from "../context/AuthContext"; 
+// import { useCart } from "../context/CartContext";
+// import { useAuth } from "../context/AuthContext";
 // import { useNavigate } from "react-router-dom";
 // import "../styles/checkout.css";
 
@@ -18,13 +205,15 @@
 //   });
 
 //   const DELIVERY_FEE = 7000;
+
 //   const itemsTotal = cartItems.reduce(
 //     (sum, item) => sum + item.price * item.quantity,
 //     0
 //   );
+
 //   const orderTotal = itemsTotal + DELIVERY_FEE;
 
-//   // Load saved shipping info (guest)
+//   // Load saved guest shipping
 //   useEffect(() => {
 //     const savedShipping = sessionStorage.getItem("guestShipping");
 //     if (savedShipping) {
@@ -32,16 +221,17 @@
 //     }
 //   }, []);
 
-//   // ✅ Dynamic page title
+//   // Dynamic title
 //   useEffect(() => {
-//     document.title = user ? `Checkout - ${user.email}` : "Checkout - Guest";
+//     document.title = user
+//       ? `Checkout - ${user.email}`
+//       : "Checkout - Guest";
 //   }, [user]);
 
 //   const handleInputChange = (e) => {
 //     const updated = { ...shipping, [e.target.name]: e.target.value };
 //     setShipping(updated);
 
-//     // Save guest shipping info temporarily
 //     if (!user) {
 //       sessionStorage.setItem("guestShipping", JSON.stringify(updated));
 //     }
@@ -55,30 +245,80 @@
 //     );
 //   }
 
-//   const placeOrder = () => {
-//     let userIdentifier = user ? user.email : null;
-//     if (!userIdentifier) {
-//       let guestId = sessionStorage.getItem("guestId");
-//       if (!guestId) {
-//         guestId = `GUEST${Date.now()}`;
-//         sessionStorage.setItem("guestId", guestId);
-//       }
-//       userIdentifier = guestId;
+//   // ✅ PAYSTACK PAYMENT FUNCTION
+//   const handlePaystackPayment = () => {
+//     if (
+//       !shipping.fullName ||
+//       !shipping.address ||
+//       !shipping.city ||
+//       !shipping.phone
+//     ) {
+//       alert("Please fill all required shipping fields.");
+//       return;
 //     }
 
-//     const orderData = {
-//       user: userIdentifier,
-//       shipping,
-//       items: cartItems.map(item => ({ ...item, qty: item.quantity })),
-//       totals: { itemsTotal, delivery: DELIVERY_FEE, orderTotal },
-//       paymentRef: `ORDER${Date.now()}`,
-//       isGuest: !user,
-//     };
+//     if (!window.PaystackPop) {
+//       alert("Payment service not available. Please refresh.");
+//       return;
+//     }
 
-//     sessionStorage.setItem("lastOrder", JSON.stringify(orderData));
-//     clearCart();
-//     if (!user) sessionStorage.removeItem("guestShipping");
-//     navigate("/order-confirmation", { state: orderData });
+//     const handler = window.PaystackPop.setup({
+//       key: process.env.REACT_APP_PAYSTACK_PUBLIC_KEY,
+//       email: user ? user.email : `${Date.now()}@guest.com`,
+//       amount: orderTotal * 100, // convert to kobo
+//       currency: "NGN",
+//       ref: `SBJ_${Date.now()}`,
+
+//       callback: function (response) {
+//         // ✅ Successful payment
+
+//         let userIdentifier = user ? user.email : null;
+
+//         if (!userIdentifier) {
+//           let guestId = sessionStorage.getItem("guestId");
+//           if (!guestId) {
+//             guestId = `GUEST${Date.now()}`;
+//             sessionStorage.setItem("guestId", guestId);
+//           }
+//           userIdentifier = guestId;
+//         }
+
+//         const orderData = {
+//           user: userIdentifier,
+//           shipping,
+//           items: cartItems.map((item) => ({
+//             ...item,
+//             qty: item.quantity,
+//           })),
+//           totals: {
+//             itemsTotal,
+//             delivery: DELIVERY_FEE,
+//             orderTotal,
+//           },
+//           paymentRef: response.reference,
+//           isGuest: !user,
+//           paidAt: new Date(),
+//         };
+
+//         sessionStorage.setItem("lastOrder", JSON.stringify(orderData));
+
+//         clearCart();
+
+//         if (!user) {
+//           sessionStorage.removeItem("guestShipping");
+//         }
+
+//         navigate("/order-confirmation", {
+//           state: orderData,
+//         });
+//       },
+
+//       onClose: function () {
+//         alert("Payment cancelled.");
+//       },
+//     });
+
+//     handler.openIframe();
 //   };
 
 //   return (
@@ -86,28 +326,37 @@
 //       <div className="checkout-left">
 //         <div className="checkout-box">
 //           <h2>Shipping Details</h2>
-//           <form className="shipping-form" onSubmit={(e) => e.preventDefault()}>
+//           <form
+//             className="shipping-form"
+//             onSubmit={(e) => e.preventDefault()}
+//           >
 //             <input
 //               type="text"
 //               name="fullName"
 //               placeholder="Full Name *"
 //               value={shipping.fullName}
 //               onChange={handleInputChange}
+//               required
 //             />
+
 //             <input
 //               type="text"
 //               name="address"
 //               placeholder="Street Address *"
 //               value={shipping.address}
 //               onChange={handleInputChange}
+//               required
 //             />
+
 //             <input
 //               type="text"
 //               name="city"
 //               placeholder="City *"
 //               value={shipping.city}
 //               onChange={handleInputChange}
+//               required
 //             />
+
 //             <input
 //               type="text"
 //               name="postalCode"
@@ -115,42 +364,50 @@
 //               value={shipping.postalCode}
 //               onChange={handleInputChange}
 //             />
+
 //             <input
 //               type="text"
 //               name="phone"
 //               placeholder="Phone Number *"
 //               value={shipping.phone}
 //               onChange={handleInputChange}
+//               required
 //             />
 //           </form>
 //         </div>
 
 //         <div className="checkout-box">
 //           <h2>Review Your Order</h2>
+
 //           <div className="checkout-items">
 //             {cartItems.map((item) => (
 //               <div key={item.id} className="checkout-item">
 //                 <div className="checkout-item-info">
 //                   <span className="item-name">{item.name}</span>
 
-//                   {/* Variations */}
 //                   {item.selectedSize && (
 //                     <span className="item-variation">
 //                       Size: <strong>{item.selectedSize}</strong>
 //                     </span>
 //                   )}
+
 //                   {item.selectedColor && (
 //                     <span className="item-variation">
 //                       Color: <strong>{item.selectedColor}</strong>
 //                       <span
 //                         className="color-swatch"
-//                         style={{ backgroundColor: item.selectedColor }}
+//                         style={{
+//                           backgroundColor: item.selectedColor,
+//                         }}
 //                       />
 //                     </span>
 //                   )}
 
-//                   <span className="item-qty">Qty: {item.quantity}</span>
+//                   <span className="item-qty">
+//                     Qty: {item.quantity}
+//                   </span>
 //                 </div>
+
 //                 <span className="item-price">
 //                   ₦{(item.price * item.quantity).toLocaleString()}
 //                 </span>
@@ -162,27 +419,40 @@
 
 //       <div className="checkout-summary">
 //         <h3>Order Summary</h3>
-//         <p>Items: <span>₦{itemsTotal.toLocaleString()}</span></p>
-//         <p>Delivery: <span>₦{DELIVERY_FEE.toLocaleString()}</span></p>
+
+//         <p>
+//           Items: <span>₦{itemsTotal.toLocaleString()}</span>
+//         </p>
+
+//         <p>
+//           Delivery: <span>₦{DELIVERY_FEE.toLocaleString()}</span>
+//         </p>
+
 //         <h3 className="summary-total">
-//           Order Total: <span>₦{orderTotal.toLocaleString()}</span>
+//           Order Total:{" "}
+//           <span>₦{orderTotal.toLocaleString()}</span>
 //         </h3>
 
-//         <button className="place-order-btn" onClick={placeOrder}>
-//           Place Order
+//         <button
+//           className="place-order-btn"
+//           onClick={handlePaystackPayment}
+//         >
+//           Pay ₦{orderTotal.toLocaleString()}
 //         </button>
 
 //         {!user && (
 //           <p className="guest-note">
-//             You are checking out as a guest. Create an account for faster checkout next time.
+//             You are checking out as a guest.
+//             Create an account for faster checkout next time.
 //           </p>
 //         )}
 
-//         <div className="secure-checkout">🔒 Secure checkout guaranteed</div>
+//         <div className="secure-checkout">
+//           🔒 Secure checkout powered by Paystack
+//         </div>
 //       </div>
 //     </div>
 //   );
-
 // }
 
 import React, { useState, useEffect } from "react";
@@ -203,6 +473,8 @@ export default function Checkout() {
     postalCode: "",
     phone: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const DELIVERY_FEE = 7000;
 
@@ -245,7 +517,9 @@ export default function Checkout() {
     );
   }
 
-  // ✅ PAYSTACK PAYMENT FUNCTION
+  // ==========================
+  // PAYSTACK PAYMENT
+  // ==========================
   const handlePaystackPayment = () => {
     if (
       !shipping.fullName ||
@@ -258,9 +532,11 @@ export default function Checkout() {
     }
 
     if (!window.PaystackPop) {
-      alert("Payment service not available. Please refresh.");
+      alert("Payment service unavailable. Please refresh.");
       return;
     }
+
+    setLoading(true);
 
     const handler = window.PaystackPop.setup({
       key: process.env.REACT_APP_PAYSTACK_PUBLIC_KEY,
@@ -269,22 +545,9 @@ export default function Checkout() {
       currency: "NGN",
       ref: `SBJ_${Date.now()}`,
 
-      callback: function (response) {
-        // ✅ Successful payment
-
-        let userIdentifier = user ? user.email : null;
-
-        if (!userIdentifier) {
-          let guestId = sessionStorage.getItem("guestId");
-          if (!guestId) {
-            guestId = `GUEST${Date.now()}`;
-            sessionStorage.setItem("guestId", guestId);
-          }
-          userIdentifier = guestId;
-        }
-
-        const orderData = {
-          user: userIdentifier,
+      callback: async function (response) {
+        const orderPayload = {
+          user: user ? user.email : "guest",
           shipping,
           items: cartItems.map((item) => ({
             ...item,
@@ -295,25 +558,49 @@ export default function Checkout() {
             delivery: DELIVERY_FEE,
             orderTotal,
           },
-          paymentRef: response.reference,
-          isGuest: !user,
-          paidAt: new Date(),
         };
 
-        sessionStorage.setItem("lastOrder", JSON.stringify(orderData));
+        try {
+          const verifyRes = await fetch(
+            `${process.env.REACT_APP_API_URL}/api/orders/verify-payment`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                reference: response.reference,
+                orderData: orderPayload,
+              }),
+            }
+          );
 
-        clearCart();
+          const data = await verifyRes.json();
 
-        if (!user) {
-          sessionStorage.removeItem("guestShipping");
+          if (!verifyRes.ok) {
+            throw new Error(data.message || "Verification failed");
+          }
+
+          clearCart();
+
+          if (!user) {
+            sessionStorage.removeItem("guestShipping");
+          }
+
+          navigate("/order-confirmation", {
+            state: data.order,
+          });
+
+        } catch (error) {
+          alert("Payment verification failed.");
+          console.error(error);
+        } finally {
+          setLoading(false);
         }
-
-        navigate("/order-confirmation", {
-          state: orderData,
-        });
       },
 
       onClose: function () {
+        setLoading(false);
         alert("Payment cancelled.");
       },
     });
@@ -436,8 +723,11 @@ export default function Checkout() {
         <button
           className="place-order-btn"
           onClick={handlePaystackPayment}
+          disabled={loading}
         >
-          Pay ₦{orderTotal.toLocaleString()}
+          {loading
+            ? "Processing..."
+            : `Pay ₦${orderTotal.toLocaleString()}`}
         </button>
 
         {!user && (
