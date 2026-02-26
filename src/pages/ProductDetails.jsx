@@ -234,73 +234,213 @@
 // export default ProductDetails;
 
 
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import "../styles/product.css";
+import products from "../data/products";
+import { useState, useEffect } from "react";
+import ProductCard from "../components/ProductCard";
+import "../styles/productDetails.css";
 
-const ProductCard = ({ product }) => {
+const ProductDetails = () => {
+  const { id } = useParams();
   const { addToCart } = useCart();
-  const [loading, setLoading] = useState(false);
 
-  const handleAddToCart = async (e) => {
-    e.stopPropagation();
+  const product = products.find((p) => p.id.toString() === id);
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [added, setAdded] = useState(false);
+
+  useEffect(() => {
+    if (product) {
+      document.title = `${product.name} - SBJ Clothings`;
+      setSelectedImage(product.images?.[0]);
+    }
+  }, [product]);
+
+  if (!product) {
+    return (
+      <div className="pd-not-found">
+        <h2>Product Not Found</h2>
+        <Link to="/">Go Back Home</Link>
+      </div>
+    );
+  }
+
+  const relatedProducts = products.filter(
+    (p) =>
+      p.id !== product.id &&
+      p.categories?.some((cat) => product.categories?.includes(cat))
+  );
+
+  const handleAddToCart = async () => {
+    if (product.sizes?.length && !selectedSize) {
+      alert("Please select a size");
+      return;
+    }
+
+    if (product.colors?.length && !selectedColor) {
+      alert("Please select a color");
+      return;
+    }
+
     setLoading(true);
 
-    const productWithDefaults = {
+    await addToCart({
       ...product,
-      quantity: 1,
-      selectedSize: product.sizes ? product.sizes[0] : null,
-      selectedColor: product.colors ? product.colors[0] : null,
-    };
+      quantity,
+      selectedSize,
+      selectedColor,
+    });
 
-    await addToCart(productWithDefaults);
-    setTimeout(() => setLoading(false), 500);
+    setLoading(false);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
   };
 
-  // Use first image from images array
-  const mainImage =
-    product.images && product.images.length > 0
-      ? product.images[0]
-      : "/placeholder.png"; // fallback image (optional)
+  const outOfStock = product.stock === 0;
 
   return (
-    <div className="product-card">
-      <Link to={`/product/${product.id}`} className="product-link">
-        {product.discount && (
-          <span className="discount-badge">-{product.discount}%</span>
-        )}
+    <div className="pd-page">
+      <div className="pd-container">
 
-        <img src={mainImage} alt={product.name} />
+        {/* ================= LEFT SIDE ================= */}
+        <div className="pd-gallery-wrapper">
 
-        <h4>{product.name}</h4>
+          <div className="pd-main-image-box">
+            <img
+              src={selectedImage}
+              alt={product.name}
+              className="pd-main-image"
+            />
+          </div>
 
-        {product.description && (
-          <p className="product-desc">{product.description}</p>
-        )}
-
-        <div className="price-section">
-          <span className="price">
-            ₦{product.price.toLocaleString()}
-          </span>
-
-          {product.oldPrice && (
-            <span className="old-price">
-              ₦{product.oldPrice.toLocaleString()}
-            </span>
+          {product.images?.length > 1 && (
+            <div className="pd-thumbnails">
+              {product.images.map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt={`${product.name}-${index}`}
+                  className={`pd-thumb ${
+                    selectedImage === img ? "active" : ""
+                  }`}
+                  onClick={() => setSelectedImage(img)}
+                />
+              ))}
+            </div>
           )}
         </div>
-      </Link>
 
-      <button
-        className="add-to-cart"
-        onClick={handleAddToCart}
-        disabled={loading}
-      >
-        {loading ? <span className="spinner"></span> : "Add to Cart"}
-      </button>
+        {/* ================= RIGHT SIDE ================= */}
+        <div className="pd-info">
+          <h1 className="pd-title">{product.name}</h1>
+
+          <div className="pd-stock">
+            {product.stock > 0
+              ? `In Stock (${product.stock} available)`
+              : "Out of Stock"}
+          </div>
+
+          <div className="pd-price-section">
+            <span className="pd-price">
+              ₦{product.price.toLocaleString()}
+            </span>
+            {product.oldPrice && (
+              <span className="pd-old-price">
+                ₦{product.oldPrice.toLocaleString()}
+              </span>
+            )}
+          </div>
+
+          <p className="pd-description">{product.description}</p>
+
+          {/* Sizes */}
+          {product.sizes?.length > 0 && (
+            <div className="pd-sizes">
+              <span>Size:</span>
+              <div className="pd-options">
+                {product.sizes.map((size) => (
+                  <button
+                    key={size}
+                    className={selectedSize === size ? "selected" : ""}
+                    onClick={() => setSelectedSize(size)}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Colors */}
+          {product.colors?.length > 0 && (
+            <div className="pd-colors">
+              <span>Color:</span>
+              <div className="pd-options">
+                {product.colors.map((color) => (
+                  <button
+                    key={color}
+                    style={{ backgroundColor: color.toLowerCase() }}
+                    className={
+                      selectedColor === color ? "selected-color" : ""
+                    }
+                    onClick={() => setSelectedColor(color)}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Quantity */}
+          <div className="pd-quantity">
+            <button
+              onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+              disabled={outOfStock}
+            >
+              -
+            </button>
+            <span>{quantity}</span>
+            <button
+              onClick={() => setQuantity((q) => q + 1)}
+              disabled={outOfStock}
+            >
+              +
+            </button>
+          </div>
+
+          <button
+            className="pd-add-to-cart"
+            onClick={handleAddToCart}
+            disabled={loading || outOfStock}
+          >
+            {loading ? "Adding..." : `Add ${quantity} to Cart`}
+          </button>
+
+          {added && (
+            <div className="pd-added-message">
+              ✅ Item added to cart
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* ================= RELATED PRODUCTS ================= */}
+      {relatedProducts.length > 0 && (
+        <div className="pd-related-section">
+          <h2>Related Products</h2>
+          <div className="pd-related-grid">
+            {relatedProducts.slice(0, 4).map((item) => (
+              <ProductCard key={item.id} product={item} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default ProductCard;
+export default ProductDetails;
