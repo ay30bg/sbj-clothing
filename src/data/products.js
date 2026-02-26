@@ -32,7 +32,7 @@ const products = [
     bestSeller: true,
     image: image1,
     description: "high-quality, richly textured lace fabric known for its crisp finish and elegant detailing. Designed to offer a luxurious and refined look, it features intricate patterns that make it perfect for weddings, special occasions, and classy traditional attire.",
-    colors: ["Deep Green", "Pink", "Blue", "Black", "Yellow", "Lemon"],
+    colors: ["Green", "Pink", "Blue", "Black", "Yellow", "Lemon"],
     shipping: "Delivery within 3–5 days"
   },
   {
@@ -302,6 +302,7 @@ const products = [
 ];
 
 export default products;
+
 
 
 
