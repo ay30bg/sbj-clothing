@@ -9,7 +9,7 @@
 /* ================= PAGE ================= */
 .home-page {
   background: var(--bg);
-  padding: 30px 20px;
+ 
 }
 
 /* ================= TOP HERO ================= */
@@ -23,16 +23,12 @@
 .main-banner {
   position: relative;
   height: 600px;
-  border-radius: 10px;
   overflow: hidden;
-
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
   display: flex;
   align-items: center;
-  padding: 60px;
   color: white;
 }
 
@@ -43,6 +39,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 25px;
+  padding: 0 30px;
 }
 
 .section-header h2 {
@@ -223,12 +220,13 @@
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
-  .home-page {
-    padding: 20px 15px;
+  .categories{
+    padding: 20px;
   }
-
+  
   .category-box{
     height: 400px;
+    padding: 20px;
   }
 
   .main-banner h1 {
