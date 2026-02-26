@@ -53,7 +53,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: 0.2s;
-  margin-bottom: 10px;
+  margin-bottom: -15px;
 }
 
 .view-all:hover {
@@ -328,4 +328,5 @@
     font-size: 12px;
   }
 }
+
 
