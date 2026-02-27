@@ -1,5 +1,4 @@
-import { FaFacebookF, FaInstagram } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "../styles/footer.css";
 
@@ -18,14 +17,14 @@ const Footer = () => {
           </p>
 
           <div className="social-icons">
-            <a href="#" aria-label="Facebook">
+            <a href="https://www.facebook.com/josephine.dara" aria-label="Facebook">
               <FaFacebookF />
             </a>
-            <a href="#" aria-label="Instagram">
+            <a href="https://instagram.com/sbj_wurld" aria-label="Instagram">
               <FaInstagram />
             </a>
-            <a href="#" aria-label="X">
-              <FaXTwitter />
+            <a href="https://tiktok.com/@sbjclothing66" aria-label="X">
+              <FaTiktok />
             </a>
           </div>
         </div>
@@ -50,7 +49,7 @@ const Footer = () => {
             Beside Lemmy Polly Company, Aboru.
           </p>
           <p>Phone: +234 802 441 4957</p>
-          <p>Email: info@sbjclothings.com</p>
+          <p>Email: sbjclothing349@gmail.com</p>
         </div>
 
         {/* NEWSLETTER */}
