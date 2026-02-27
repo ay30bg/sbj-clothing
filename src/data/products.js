@@ -1,3 +1,4 @@
+
 import image1 from "../assets/dry-lace.jpeg";
 import image2 from "../assets/swiss-3d.jpeg";
 import image3 from "../assets/swiss-handcut.jpeg";
@@ -35,6 +36,15 @@ import image34 from "../assets/green-men.jpeg";
 import image35 from "../assets/sky-blue-men.jpeg";
 import image36 from "../assets/white-men.jpeg";
 import image37 from "../assets/stacked-men.jpeg";
+import image38 from "../assets/pink-turkey.jpeg";
+import image39 from "../assets/wine-turkey.jpeg";
+import image40 from "../assets/brown-turkey.jpeg";
+import image41 from "../assets/green-turkey.jpeg";
+import image42 from "../assets/pink-patten-turkey.jpeg";
+import image43 from "../assets/two-piece-white-turkey.jpeg";
+import image44 from "../assets/red-gucci-up-down.jpeg";
+import image45 from "../assets/white&wine-up-down.jpeg";
+import image46 from "../assets/black&white-up-down.jpeg";
 
 
 const products = [
@@ -237,8 +247,142 @@ const products = [
     sizes: ["39", "40", "41", "42", "43"],
     shipping: "Delivery within 3–5 days"
   },
+  {
+    id: 14,
+    name: "Elegant Pink Peplum Long Dress with Embellished Bodice",
+    price: 180000,
+    oldPrice: 250000,
+    categories: ["Women"],
+    rating: 4.8,
+    reviews: 10,
+    stock: 5,
+    bestSeller: false,
+    images: [image38],
+    description: "Step into elegance with this stunning pink peplum long dress, featuring a fitted silhouette that flatters the figure. The intricately embellished bodice with sparkling accents adds a touch of glamour, while the structured peplum waist enhances sophistication and style. Perfect for formal events, parties, or special occasions, this dress combines timeless design with modern elegance. Pair with gold accessories and heels for a complete, show-stopping look.",
+    sizes: ["L"],
+    shipping: "Delivery within 3–5 days"
+  },
+  {
+    id: 15,
+    name: "Regal Plum Pleated Evening Gown with Lace Detailing",
+    price: 150000,
+    oldPrice: 220000,
+    categories: ["Women"],
+    rating: 4.8,
+    reviews: 8,
+    stock: 5,
+    bestSeller: true,
+    images: [image39],
+    description: "Step into elegance with this luxurious plum evening gown, crafted from a rich, lustrous fabric that gracefully flows with every movement. The bodice features intricate black lace accents, highlighting the neckline and creating a sophisticated contrast. Puff sleeves add a touch of vintage charm, while the pleated skirt ensures a flattering, fluid silhouette. Perfect for formal events, gala dinners, or any occasion where you want to make a statement. Complete the look with your favorite heels and a chic clutch.",
+    sizes: ["M", "L"],
+    shipping: "Delivery within 3–5 days",
+  },
+  {
+    id: 16,
+    name: "Elegant Ruffled Peplum Sequin Gown",
+    price: 180000,
+    oldPrice: 300000,
+    categories: ["Women"],
+    rating: 4.7,
+    reviews: 5,
+    stock: 5,
+    bestSeller: false,
+    images: [image40],
+    description: "Turn heads with this stunning Elegant Ruffled Peplum Sequin Gown. Featuring a beautifully tailored bodice with dramatic ruffled shoulders and a plunging neckline, it perfectly balances sophistication and glamour. The long, flowing sleeves add a regal touch, while the high-waisted, fully sequined skirt dazzles with intricate patterns, creating a luxurious, floor-length silhouette. Ideal for weddings, formal events, or special occasions, this gown is designed to make a lasting impression.",
+    sizes: ["L"],
+    shipping: "Delivery within 3–5 days"
+  },
+  {
+    id: 17,
+    name: "Emerald Royale Embellished Peplum Midi Dress",
+    price: 150000,
+    oldPrice: 200000,
+    categories: ["Women"],
+    rating: 4.8,
+    reviews: 10,
+    stock: 5,
+    bestSeller: true,
+    images: [image41],
+    description: "A statement-making emerald green midi dress featuring a structured peplum waist, intricate gold embellishments, and a sleek figure-flattering silhouette — perfect for weddings, church, special events, and elegant celebrations.",
+    sizes: ["S", "M", "L"],
+    shipping: "Delivery within 3–5 days"
+  },
+  {
+    id: 18,
+    name: "Blush Royale Embellished Pleated Midi Dress",
+    price: 180000,
+    oldPrice: 250000,
+    categories: ["Women"],
+    rating: 4.8,
+    reviews: 1,
+    stock: 5,
+    bestSeller: false,
+    images: [image42],
+    description: "A graceful blush pink midi dress featuring a delicately embellished bodice, flowing pleated skirt, and statement gold buckle belt — designed for timeless elegance at weddings, parties, and special occasions.",
+    sizes: ["M"],
+    shipping: "Delivery within 3–5 days"
+  },
+  {
+    id: 19,
+    name: "Ivory Luxe Pleated Two-Piece Set (Original Turkey)",
+    price: 78000,
+    oldPrice: 15000,
+    categories: ["Women"],
+    rating: 4.5,
+    reviews: 12,
+    stock: 5,
+    bestSeller: false,
+    images: [image43],
+    description: "A refined white two-piece ensemble featuring a soft draped top and flowing pleated wide-leg pants — crafted in premium Turkish fabric for elegance, comfort, and timeless style.",
+    sizes: ["S", "M", "L"],
+    shipping: "Delivery within 3–5 days",
+  },
+  {
+    id: 20,
+    name: "Ruby Sport Luxe Two-Piece Lounge Set",
+    price: 85000,
+    oldPrice: 95000,
+    categories: ["Women"],
+    rating: 4.8,
+    reviews: 15,
+    stock: 5,
+    bestSeller: true,
+    images: [image44],  
+    description: "A bold red sporty-chic two-piece set featuring a zip-front fitted top and relaxed wide-leg pants with contrast stripe details — perfect for stylish comfort and everyday slay.",
+    sizes: ["L"],
+    shipping: "Delivery within 3–5 days"
+  },
+  {
+    id: 21,
+    name: "Blush Motion Colorblock Two-Piece Set",
+    price: 80000,
+    oldPrice: 120000,
+    categories: ["Women"],
+    rating: 4.7,
+    reviews: 8,
+    stock: 5,
+    bestSeller: false,
+    images: [image45],
+    description: "A stylish pink and white colorblock two-piece set featuring a relaxed-fit top and matching wide-leg stripe pants — designed for comfort, confidence, and everyday chic.",
+    sizes: ["S", "M", "L"],
+    shipping: "Delivery within 3–5 days"
+  },
+  {
+    id: 22,
+    name: "Monochrome Edge Sporty Two-Piece Set",
+    price: 75000,
+    oldPrice: 100000,
+    categories  : ["Women"],
+    rating: 4.9,
+    reviews: 20,  
+    stock: 5,
+    bestSeller: true,
+    images: [image46],
+    description: "A sleek black and white two-piece set featuring a stripe-detailed top and matching wide-leg pants — designed for effortless style, comfort, and everyday versatility.",
+    sizes: ["S", "M", "L"],
+    shipping: "Delivery within 3–5 days"
+  },
 ];
-
 export default products;
 
 
