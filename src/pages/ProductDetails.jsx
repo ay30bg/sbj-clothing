@@ -9,27 +9,19 @@
 //   const { id } = useParams();
 //   const { addToCart } = useCart();
 
-//   const [loading, setLoading] = useState(false);
-//   const [quantity, setQuantity] = useState(1);
-//   const [added, setAdded] = useState(false);
-//   const [selectedSize, setSelectedSize] = useState(null);
-//   const [selectedColor, setSelectedColor] = useState(null);
-
 //   const product = products.find((p) => p.id.toString() === id);
 
-//   // ✅ Related products (same category)
-//   const relatedProducts = products.filter(
-//     (p) =>
-//       p.id !== product?.id &&
-//       JSON.stringify(p.categories) === JSON.stringify(product?.categories)
-//   );
+//   const [selectedImage, setSelectedImage] = useState(null);
+//   const [selectedSize, setSelectedSize] = useState(null);
+//   const [selectedColor, setSelectedColor] = useState(null);
+//   const [quantity, setQuantity] = useState(1);
+//   const [loading, setLoading] = useState(false);
+//   const [added, setAdded] = useState(false);
 
-//   // ✅ Dynamic page title
 //   useEffect(() => {
 //     if (product) {
 //       document.title = `${product.name} - SBJ Clothings`;
-//     } else {
-//       document.title = "Product Not Found - SBJ Clothings";
+//       setSelectedImage(product.images?.[0]);
 //     }
 //   }, [product]);
 
@@ -37,24 +29,29 @@
 //     return (
 //       <div className="pd-not-found">
 //         <h2>Product Not Found</h2>
-//         <p>The product you are looking for does not exist.</p>
+//         <Link to="/">Go Back Home</Link>
 //       </div>
 //     );
 //   }
 
+//   const relatedProducts = products.filter(
+//     (p) =>
+//       p.id !== product.id &&
+//       p.categories?.some((cat) => product.categories?.includes(cat))
+//   );
+
 //   const handleAddToCart = async () => {
-//     if (product.sizes?.length > 0 && !selectedSize) {
+//     if (product.sizes?.length && !selectedSize) {
 //       alert("Please select a size");
 //       return;
 //     }
 
-//     if (product.colors?.length > 0 && !selectedColor) {
+//     if (product.colors?.length && !selectedColor) {
 //       alert("Please select a color");
 //       return;
 //     }
 
 //     setLoading(true);
-//     setAdded(false);
 
 //     await addToCart({
 //       ...product,
@@ -63,61 +60,53 @@
 //       selectedColor,
 //     });
 
-//     setTimeout(() => {
-//       setLoading(false);
-//       setAdded(true);
-//       setTimeout(() => setAdded(false), 2000);
-//     }, 500);
+//     setLoading(false);
+//     setAdded(true);
+//     setTimeout(() => setAdded(false), 2000);
 //   };
 
 //   const outOfStock = product.stock === 0;
 
 //   return (
 //     <div className="pd-page">
-
-//       {/* ================= MAIN PRODUCT ================= */}
 //       <div className="pd-container">
 
-//         {/* LEFT IMAGE */}
-//         <div className="pd-gallery">
-//           <img src={product.image} alt={product.name} />
-//           {product.discount && (
-//             <span className="pd-discount-badge">-{product.discount}%</span>
+//         {/* ================= LEFT SIDE ================= */}
+//         <div className="pd-gallery-wrapper">
+
+//           <div className="pd-main-image-box">
+//             <img
+//               src={selectedImage}
+//               alt={product.name}
+//               className="pd-main-image"
+//             />
+//           </div>
+
+//           {product.images?.length > 1 && (
+//             <div className="pd-thumbnails">
+//               {product.images.map((img, index) => (
+//                 <img
+//                   key={index}
+//                   src={img}
+//                   alt={`${product.name}-${index}`}
+//                   className={`pd-thumb ${
+//                     selectedImage === img ? "active" : ""
+//                   }`}
+//                   onClick={() => setSelectedImage(img)}
+//                 />
+//               ))}
+//             </div>
 //           )}
 //         </div>
 
-//         {/* RIGHT INFO */}
+//         {/* ================= RIGHT SIDE ================= */}
 //         <div className="pd-info">
 //           <h1 className="pd-title">{product.name}</h1>
 
-//           <div className="pd-category">
-//             Category:{" "}
-//             <strong>
-//               {Array.isArray(product.categories)
-//                 ? product.categories.map((cat, index) => (
-//                     <span key={cat}>
-//                       <Link to={`/category/${cat.toLowerCase()}`}>{cat}</Link>
-//                       {index < product.categories.length - 1 && ", "}
-//                     </span>
-//                   ))
-//                 : (
-//                   <Link to={`/category/${product.categories.toLowerCase()}`}>
-//                     {product.categories}
-//                   </Link>
-//                 )}
-//             </strong>
-//           </div>
-
-//           <div className={`pd-stock ${product.stock > 0 ? "in-stock" : "out-stock"}`}>
+//           <div className="pd-stock">
 //             {product.stock > 0
 //               ? `In Stock (${product.stock} available)`
 //               : "Out of Stock"}
-//           </div>
-
-//           <div className="pd-rating">
-//             {"⭐".repeat(Math.floor(product.rating))}
-//             {product.rating % 1 >= 0.5 && "☆"}
-//             <span> ({product.reviews} reviews)</span>
 //           </div>
 
 //           <div className="pd-price-section">
@@ -160,9 +149,11 @@
 //                   <button
 //                     key={color}
 //                     style={{ backgroundColor: color.toLowerCase() }}
-//                     className={selectedColor === color ? "selected" : ""}
+//                     className={
+//                       selectedColor === color ? "selected-color" : ""
+//                     }
 //                     onClick={() => setSelectedColor(color)}
-//                   ></button>
+//                   />
 //                 ))}
 //               </div>
 //             </div>
@@ -185,37 +176,23 @@
 //             </button>
 //           </div>
 
-//           {/* Add to Cart */}
-//           <div className="pd-action-buttons">
-//             <button
-//               className="pd-add-to-cart"
-//               onClick={handleAddToCart}
-//               disabled={loading || outOfStock}
-//             >
-//               {loading ? (
-//                 <span className="pd-spinner"></span>
-//               ) : (
-//                 `Add ${quantity} to Cart`
-//               )}
-//             </button>
+//           <button
+//             className="pd-add-to-cart"
+//             onClick={handleAddToCart}
+//             disabled={loading || outOfStock}
+//           >
+//             {loading ? "Adding..." : `Add ${quantity} to Cart`}
+//           </button>
 
-//             {added && (
-//               <div className="pd-added-message">
-//                 ✅ Item added to cart
-//               </div>
-//             )}
-//           </div>
-
-//           <div className="pd-extra-info">
-//             {product.shipping && <p>{product.shipping}</p>}
-//             <p>🔒 Secure payment guaranteed</p>
-//             <p>↩ 7-day return policy</p>
-//           </div>
-
+//           {added && (
+//             <div className="pd-added-message">
+//               ✅ Item added to cart
+//             </div>
+//           )}
 //         </div>
 //       </div>
 
-//       {/* ================= RELATED PRODUCTS (OUTSIDE pd-container) ================= */}
+//       {/* ================= RELATED PRODUCTS ================= */}
 //       {relatedProducts.length > 0 && (
 //         <div className="pd-related-section">
 //           <h2>Related Products</h2>
@@ -226,13 +203,11 @@
 //           </div>
 //         </div>
 //       )}
-
 //     </div>
 //   );
 // };
 
 // export default ProductDetails;
-
 
 import { useParams, Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
@@ -270,13 +245,17 @@ const ProductDetails = () => {
     );
   }
 
+  const outOfStock = product.stock === 0;
+
   const relatedProducts = products.filter(
     (p) =>
       p.id !== product.id &&
-      p.categories?.some((cat) => product.categories?.includes(cat))
+      p.categories?.some((cat) =>
+        product.categories?.includes(cat)
+      )
   );
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = () => {
     if (product.sizes?.length && !selectedSize) {
       alert("Please select a size");
       return;
@@ -287,29 +266,36 @@ const ProductDetails = () => {
       return;
     }
 
+    if (quantity > product.stock) {
+      alert("Quantity exceeds available stock");
+      return;
+    }
+
     setLoading(true);
 
-    await addToCart({
+    const cartProduct = {
       ...product,
-      quantity,
       selectedSize,
       selectedColor,
-    });
+      selectedImage,
+    };
+
+    // ✅ Pass quantity separately (IMPORTANT)
+    addToCart(cartProduct, quantity);
 
     setLoading(false);
     setAdded(true);
+    setQuantity(1);
+
     setTimeout(() => setAdded(false), 2000);
   };
-
-  const outOfStock = product.stock === 0;
 
   return (
     <div className="pd-page">
       <div className="pd-container">
 
-        {/* ================= LEFT SIDE ================= */}
+        {/* LEFT SIDE - GALLERY */}
         <div className="pd-gallery-wrapper">
-
           <div className="pd-main-image-box">
             <img
               src={selectedImage}
@@ -335,7 +321,7 @@ const ProductDetails = () => {
           )}
         </div>
 
-        {/* ================= RIGHT SIDE ================= */}
+        {/* RIGHT SIDE - INFO */}
         <div className="pd-info">
           <h1 className="pd-title">{product.name}</h1>
 
@@ -349,6 +335,7 @@ const ProductDetails = () => {
             <span className="pd-price">
               ₦{product.price.toLocaleString()}
             </span>
+
             {product.oldPrice && (
               <span className="pd-old-price">
                 ₦{product.oldPrice.toLocaleString()}
@@ -356,9 +343,11 @@ const ProductDetails = () => {
             )}
           </div>
 
-          <p className="pd-description">{product.description}</p>
+          <p className="pd-description">
+            {product.description}
+          </p>
 
-          {/* Sizes */}
+          {/* SIZE OPTIONS */}
           {product.sizes?.length > 0 && (
             <div className="pd-sizes">
               <span>Size:</span>
@@ -366,7 +355,9 @@ const ProductDetails = () => {
                 {product.sizes.map((size) => (
                   <button
                     key={size}
-                    className={selectedSize === size ? "selected" : ""}
+                    className={
+                      selectedSize === size ? "selected" : ""
+                    }
                     onClick={() => setSelectedSize(size)}
                   >
                     {size}
@@ -376,7 +367,7 @@ const ProductDetails = () => {
             </div>
           )}
 
-          {/* Colors */}
+          {/* COLOR OPTIONS */}
           {product.colors?.length > 0 && (
             <div className="pd-colors">
               <span>Color:</span>
@@ -384,40 +375,63 @@ const ProductDetails = () => {
                 {product.colors.map((color) => (
                   <button
                     key={color}
-                    style={{ backgroundColor: color.toLowerCase() }}
+                    style={{
+                      backgroundColor:
+                        color.toLowerCase(),
+                    }}
                     className={
-                      selectedColor === color ? "selected-color" : ""
+                      selectedColor === color
+                        ? "selected-color"
+                        : ""
                     }
-                    onClick={() => setSelectedColor(color)}
+                    onClick={() =>
+                      setSelectedColor(color)
+                    }
                   />
                 ))}
               </div>
             </div>
           )}
 
-          {/* Quantity */}
+          {/* QUANTITY */}
           <div className="pd-quantity">
             <button
-              onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+              onClick={() =>
+                setQuantity((q) =>
+                  Math.max(1, q - 1)
+                )
+              }
               disabled={outOfStock}
             >
               -
             </button>
+
             <span>{quantity}</span>
+
             <button
-              onClick={() => setQuantity((q) => q + 1)}
+              onClick={() =>
+                setQuantity((q) =>
+                  Math.min(
+                    product.stock,
+                    q + 1
+                  )
+                )
+              }
               disabled={outOfStock}
             >
               +
             </button>
           </div>
 
+          {/* ADD TO CART */}
           <button
             className="pd-add-to-cart"
             onClick={handleAddToCart}
             disabled={loading || outOfStock}
           >
-            {loading ? "Adding..." : `Add ${quantity} to Cart`}
+            {loading
+              ? "Adding..."
+              : `Add ${quantity} to Cart`}
           </button>
 
           {added && (
@@ -428,14 +442,19 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      {/* ================= RELATED PRODUCTS ================= */}
+      {/* RELATED PRODUCTS */}
       {relatedProducts.length > 0 && (
         <div className="pd-related-section">
           <h2>Related Products</h2>
           <div className="pd-related-grid">
-            {relatedProducts.slice(0, 4).map((item) => (
-              <ProductCard key={item.id} product={item} />
-            ))}
+            {relatedProducts
+              .slice(0, 4)
+              .map((item) => (
+                <ProductCard
+                  key={item.id}
+                  product={item}
+                />
+              ))}
           </div>
         </div>
       )}
