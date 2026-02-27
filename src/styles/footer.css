@@ -6,7 +6,7 @@
   --gray: #bbb;
 }
 
-/* MAIN FOOTER */
+/* ================= MAIN FOOTER ================= */
 .footer {
   background: var(--dark);
   color: var(--white);
@@ -14,7 +14,7 @@
   margin-top: 80px;
 }
 
-/* CONTAINER */
+/* ================= CONTAINER ================= */
 .footer-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -22,7 +22,7 @@
   padding: 0 40px 50px;
 }
 
-/* SECTION */
+/* ================= SECTION ================= */
 .footer-section h4,
 .footer-logo {
   margin-bottom: 15px;
@@ -39,42 +39,51 @@
   line-height: 1.6;
 }
 
-/* LISTS */
+/* ================= LISTS ================= */
 .footer-section ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .footer-section li {
   margin-bottom: 10px;
   font-size: 14px;
-  cursor: pointer;
+}
+
+/* Proper link styling */
+.footer-section li a {
+  text-decoration: none;     /* ✅ remove underline */
   color: var(--gray);
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
-.footer-section li:hover {
+/* Hover effect */
+.footer-section li a:hover {
   color: var(--accent);
+  transform: translateX(4px);
 }
 
-/* SOCIAL */
+/* ================= SOCIAL ================= */
 .social-icons {
   display: flex;
   gap: 15px;
   margin-top: 15px;
 }
 
-.social-icons svg {
-  cursor: pointer;
+.social-icons a {
+  color: var(--white);
   font-size: 16px;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
-.social-icons svg:hover {
+.social-icons a:hover {
   color: var(--accent);
+  transform: translateY(-2px);
 }
 
-/* NEWSLETTER */
+/* ================= NEWSLETTER ================= */
 .newsletter {
   display: flex;
   margin-top: 10px;
@@ -85,17 +94,24 @@
   border: none;
   outline: none;
   flex: 1;
+  font-size: 14px;
 }
 
 .newsletter button {
   padding: 10px 15px;
   background: var(--accent);
   border: none;
-  color: white;
+  color: var(--white);
   cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s ease;
 }
 
-/* PAYMENT METHODS */
+.newsletter button:hover {
+  opacity: 0.85;
+}
+
+/* ================= PAYMENT METHODS ================= */
 .payment-methods {
   display: flex;
   justify-content: center;
@@ -109,7 +125,7 @@
   color: var(--gray);
 }
 
-/* BOTTOM */
+/* ================= BOTTOM ================= */
 .footer-bottom {
   text-align: center;
   padding: 15px 0;
@@ -118,7 +134,7 @@
   color: var(--gray);
 }
 
-/* RESPONSIVE */
+/* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
   .footer-container {
     padding: 0 20px 40px;
