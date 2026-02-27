@@ -1,181 +1,23 @@
-// // import React, { useEffect } from "react";
-// // import { Link } from "react-router-dom";
-// // import { useCart } from "../context/CartContext";
-// // import "../styles/cart.css";
-
-// // export default function Cart() {
-// //   const { cartItems, removeFromCart, addToCart, clearCart, getTotal } = useCart();
-
-// //   const subtotal = getTotal();
-// //   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-
-// //   const handleQuantity = (item, delta) => {
-// //     if (delta === -1 && item.quantity === 1) {
-// //       removeFromCart(item);
-// //     } else {
-// //       addToCart({ ...item, quantity: delta });
-// //     }
-// //   };
-
-// //   // ✅ Dynamic Page Title
-// //   useEffect(() => {
-// //     document.title = "Cart - SBJ Clothing";
-// //   }, []);
-
-// //   return (
-// //     <div className="cart-container">
-// //       {/* CART ITEMS */}
-// //       <div className="cart-items">
-// //         <h2>Cart</h2>
-
-// //         {cartItems.length === 0 ? (
-// //           <div className="empty-cart">
-// //             <img
-// //               src="https://via.placeholder.com/200x150?text=Empty+Cart"
-// //               alt="Empty Cart"
-// //             />
-// //             <p>Your cart is empty</p>
-// //             <Link to="/" className="continue-shopping-btn">
-// //               Continue Shopping
-// //             </Link>
-// //           </div>
-// //         ) : (
-// //           <>
-// //             {cartItems.map((item, index) => (
-// //               <div key={index} className="cart-item">
-// //                 <img src={item.image} alt={item.name} />
-// //                 <div className="cart-item-info">
-// //                   <p className="cart-item-name">{item.name}</p>
-
-// //                   {/* Variations */}
-// //                   {item.selectedSize && (
-// //                     <div className="cart-item-variation">
-// //                       <span className="variation-label">Size:</span>
-// //                       <span className="variation-value">{item.selectedSize}</span>
-// //                     </div>
-// //                   )}
-// //                   {item.selectedColor && (
-// //                     <div className="cart-item-variation">
-// //                       <span className="variation-label">Color:</span>
-// //                       <span
-// //                         className="variation-value color-swatch"
-// //                         style={{ backgroundColor: item.selectedColor }}
-// //                       />
-// //                     </div>
-// //                   )}
-
-// //                   <p className="cart-item-price">
-// //                     ₦{item.price.toLocaleString()}
-// //                   </p>
-
-// //                   <div className="quantity-controls">
-// //                     <button onClick={() => handleQuantity(item, -1)}>-</button>
-// //                     <span>{item.quantity}</span>
-// //                     <button onClick={() => handleQuantity(item, 1)}>+</button>
-// //                   </div>
-// //                 </div>
-
-// //                 <button className="remove-btn" onClick={() => removeFromCart(item)}>
-// //                   Remove
-// //                 </button>
-// //               </div>
-// //             ))}
-
-// //             <button className="clear-cart-btn" onClick={clearCart}>
-// //               Clear Cart
-// //             </button>
-// //           </>
-// //         )}
-// //       </div>
-
-// //       {/* CART SUMMARY */}
-// //       {cartItems.length > 0 && (
-// //         <div className="cart-summary">
-// //           <h3>
-// //             Subtotal ({totalItems} items):{" "}
-// //             <span className="summary-price">₦{subtotal.toLocaleString()}</span>
-// //           </h3>
-
-// //           <div className="cost-breakdown">
-// //             <p>
-// //               Shipping: <span>Calculated at checkout</span>
-// //             </p>
-// //             <p>
-// //               Taxes (VAT): <span>Included</span>
-// //             </p>
-// //             <p className="total-line">
-// //               Order Total: <strong>₦{subtotal.toLocaleString()}</strong>
-// //             </p>
-// //           </div>
-
-// //           <div className="coupon-section">
-// //             <input type="text" placeholder="Enter promo code" />
-// //             <button className="apply-btn">Apply</button>
-// //           </div>
-
-// //           <div className="gift-option">
-// //             <input type="checkbox" id="gift" />
-// //             <label htmlFor="gift">This order contains a gift</label>
-// //           </div>
-
-// //           <div className="delivery-info">
-// //             <p>
-// //               Estimated delivery: <strong>2 – 5 business days</strong>
-// //             </p>
-// //             <p className="shipping-note">
-// //               Exact shipping fees calculated at checkout
-// //             </p>
-// //           </div>
-
-// //           <Link to="/checkout">
-// //             <button className="checkout-btn">Proceed to Checkout</button>
-// //           </Link>
-
-// //           <div className="secure-checkout">
-// //             <span className="lock-icon">🔒</span> Secure checkout guaranteed
-// //           </div>
-
-// //           <div className="return-policy">
-// //             <p>✅ 30-day free returns</p>
-// //             <p>💳 100% money-back guarantee</p>
-// //             <p>🔒 Payments secured by SSL</p>
-// //           </div>
-// //         </div>
-// //       )}
-// //     </div>
-// //   );
-
-// // }
-
 // import React, { useEffect } from "react";
 // import { Link } from "react-router-dom";
 // import { useCart } from "../context/CartContext";
 // import "../styles/cart.css";
 
 // export default function Cart() {
-//   const {
-//     cartItems,
-//     removeFromCart,
-//     addToCart,
-//     clearCart,
-//     getTotal,
-//   } = useCart();
+//   const { cartItems, removeFromCart, addToCart, clearCart, getTotal } = useCart();
 
 //   const subtotal = getTotal();
-//   const totalItems = cartItems.reduce(
-//     (sum, item) => sum + item.quantity,
-//     0
-//   );
+//   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
 //   const handleQuantity = (item, delta) => {
 //     if (delta === -1 && item.quantity === 1) {
 //       removeFromCart(item);
 //     } else {
-//       addToCart(item, delta); // quantity handled inside context
+//       addToCart({ ...item, quantity: delta });
 //     }
 //   };
 
-//   // Dynamic Page Title
+//   // ✅ Dynamic Page Title
 //   useEffect(() => {
 //     document.title = "Cart - SBJ Clothing";
 //   }, []);
@@ -184,7 +26,7 @@
 //     <div className="cart-container">
 //       {/* CART ITEMS */}
 //       <div className="cart-items">
-//         <h2>Shopping Cart</h2>
+//         <h2>Cart</h2>
 
 //         {cartItems.length === 0 ? (
 //           <div className="empty-cart">
@@ -201,15 +43,7 @@
 //           <>
 //             {cartItems.map((item, index) => (
 //               <div key={index} className="cart-item">
-//                 {/* Product Image */}
-//                 <div className="cart-item-image">
-//                   <img
-//                     src={item.selectedImage || item.images?.[0]}
-//                     alt={item.name}
-//                   />
-//                 </div>
-
-//                 {/* Product Info */}
+//                 <img src={item.image} alt={item.name} />
 //                 <div className="cart-item-info">
 //                   <p className="cart-item-name">{item.name}</p>
 
@@ -217,56 +51,37 @@
 //                   {item.selectedSize && (
 //                     <div className="cart-item-variation">
 //                       <span className="variation-label">Size:</span>
-//                       <span className="variation-value">
-//                         {item.selectedSize}
-//                       </span>
+//                       <span className="variation-value">{item.selectedSize}</span>
 //                     </div>
 //                   )}
-
 //                   {item.selectedColor && (
 //                     <div className="cart-item-variation">
 //                       <span className="variation-label">Color:</span>
-//                       <span className="variation-value">
-//                         {item.selectedColor}
-//                       </span>
+//                       <span
+//                         className="variation-value color-swatch"
+//                         style={{ backgroundColor: item.selectedColor }}
+//                       />
 //                     </div>
 //                   )}
 
-//                   {/* Price */}
 //                   <p className="cart-item-price">
 //                     ₦{item.price.toLocaleString()}
 //                   </p>
 
-//                   {/* Quantity Controls */}
 //                   <div className="quantity-controls">
-//                     <button
-//                       onClick={() => handleQuantity(item, -1)}
-//                     >
-//                       −
-//                     </button>
+//                     <button onClick={() => handleQuantity(item, -1)}>-</button>
 //                     <span>{item.quantity}</span>
-//                     <button
-//                       onClick={() => handleQuantity(item, 1)}
-//                     >
-//                       +
-//                     </button>
+//                     <button onClick={() => handleQuantity(item, 1)}>+</button>
 //                   </div>
 //                 </div>
 
-//                 {/* Remove Button */}
-//                 <button
-//                   className="remove-btn"
-//                   onClick={() => removeFromCart(item)}
-//                 >
+//                 <button className="remove-btn" onClick={() => removeFromCart(item)}>
 //                   Remove
 //                 </button>
 //               </div>
 //             ))}
 
-//             <button
-//               className="clear-cart-btn"
-//               onClick={clearCart}
-//             >
+//             <button className="clear-cart-btn" onClick={clearCart}>
 //               Clear Cart
 //             </button>
 //           </>
@@ -278,9 +93,7 @@
 //         <div className="cart-summary">
 //           <h3>
 //             Subtotal ({totalItems} items):{" "}
-//             <span className="summary-price">
-//               ₦{subtotal.toLocaleString()}
-//             </span>
+//             <span className="summary-price">₦{subtotal.toLocaleString()}</span>
 //           </h3>
 
 //           <div className="cost-breakdown">
@@ -291,47 +104,35 @@
 //               Taxes (VAT): <span>Included</span>
 //             </p>
 //             <p className="total-line">
-//               Order Total:{" "}
-//               <strong>₦{subtotal.toLocaleString()}</strong>
+//               Order Total: <strong>₦{subtotal.toLocaleString()}</strong>
 //             </p>
 //           </div>
 
-//           {/* Coupon Section */}
 //           <div className="coupon-section">
 //             <input type="text" placeholder="Enter promo code" />
-//             <button className="apply-btn">
-//               Apply
-//             </button>
+//             <button className="apply-btn">Apply</button>
 //           </div>
 
-//           {/* Gift Option */}
 //           <div className="gift-option">
 //             <input type="checkbox" id="gift" />
-//             <label htmlFor="gift">
-//               This order contains a gift
-//             </label>
+//             <label htmlFor="gift">This order contains a gift</label>
 //           </div>
 
-//           {/* Delivery Info */}
 //           <div className="delivery-info">
 //             <p>
-//               Estimated delivery:{" "}
-//               <strong>2 – 5 business days</strong>
+//               Estimated delivery: <strong>2 – 5 business days</strong>
 //             </p>
 //             <p className="shipping-note">
 //               Exact shipping fees calculated at checkout
 //             </p>
 //           </div>
 
-//           {/* Checkout Button */}
 //           <Link to="/checkout">
-//             <button className="checkout-btn">
-//               Proceed to Checkout
-//             </button>
+//             <button className="checkout-btn">Proceed to Checkout</button>
 //           </Link>
 
 //           <div className="secure-checkout">
-//             🔒 Secure checkout guaranteed
+//             <span className="lock-icon">🔒</span> Secure checkout guaranteed
 //           </div>
 
 //           <div className="return-policy">
@@ -343,6 +144,7 @@
 //       )}
 //     </div>
 //   );
+
 // }
 
 import React, { useEffect } from "react";
@@ -353,8 +155,8 @@ import "../styles/cart.css";
 export default function Cart() {
   const {
     cartItems,
-    addToCart,
     removeFromCart,
+    addToCart,
     clearCart,
     getTotal,
   } = useCart();
@@ -366,15 +168,21 @@ export default function Cart() {
   );
 
   const handleQuantity = (item, delta) => {
-    addToCart(item, delta);
+    if (delta === -1 && item.quantity === 1) {
+      removeFromCart(item);
+    } else {
+      addToCart(item, delta); // quantity handled inside context
+    }
   };
 
+  // Dynamic Page Title
   useEffect(() => {
     document.title = "Cart - SBJ Clothing";
   }, []);
 
   return (
     <div className="cart-container">
+      {/* CART ITEMS */}
       <div className="cart-items">
         <h2>Shopping Cart</h2>
 
@@ -393,65 +201,62 @@ export default function Cart() {
           <>
             {cartItems.map((item, index) => (
               <div key={index} className="cart-item">
+                {/* Product Image */}
                 <div className="cart-item-image">
                   <img
-                    src={
-                      item.selectedImage ||
-                      item.images?.[0]
-                    }
+                    src={item.selectedImage || item.images?.[0]}
                     alt={item.name}
                   />
                 </div>
 
+                {/* Product Info */}
                 <div className="cart-item-info">
-                  <p className="cart-item-name">
-                    {item.name}
-                  </p>
+                  <p className="cart-item-name">{item.name}</p>
 
+                  {/* Variations */}
                   {item.selectedSize && (
                     <div className="cart-item-variation">
-                      <span>Size:</span>{" "}
-                      {item.selectedSize}
+                      <span className="variation-label">Size:</span>
+                      <span className="variation-value">
+                        {item.selectedSize}
+                      </span>
                     </div>
                   )}
 
                   {item.selectedColor && (
                     <div className="cart-item-variation">
-                      <span>Color:</span>{" "}
-                      {item.selectedColor}
+                      <span className="variation-label">Color:</span>
+                      <span className="variation-value">
+                        {item.selectedColor}
+                      </span>
                     </div>
                   )}
 
+                  {/* Price */}
                   <p className="cart-item-price">
                     ₦{item.price.toLocaleString()}
                   </p>
 
+                  {/* Quantity Controls */}
                   <div className="quantity-controls">
                     <button
-                      onClick={() =>
-                        handleQuantity(item, -1)
-                      }
+                      onClick={() => handleQuantity(item, -1)}
                     >
                       −
                     </button>
-
                     <span>{item.quantity}</span>
-
                     <button
-                      onClick={() =>
-                        handleQuantity(item, 1)
-                      }
+                      onClick={() => handleQuantity(item, 1)}
                     >
                       +
                     </button>
                   </div>
                 </div>
 
+                {/* Remove Button */}
                 <button
                   className="remove-btn"
-                  onClick={() =>
-                    removeFromCart(item)
-                  }
+                  onClick={() => removeFromCart(item)}
                 >
                   Remove
                 </button>
@@ -468,6 +273,7 @@ export default function Cart() {
         )}
       </div>
 
+      {/* CART SUMMARY */}
       {cartItems.length > 0 && (
         <div className="cart-summary">
           <h3>
@@ -479,29 +285,63 @@ export default function Cart() {
 
           <div className="cost-breakdown">
             <p>
-              Shipping:{" "}
-              <span>
-                Calculated at checkout
-              </span>
+              Shipping: <span>Calculated at checkout</span>
             </p>
             <p>
               Taxes (VAT): <span>Included</span>
             </p>
             <p className="total-line">
               Order Total:{" "}
-              <strong>
-                ₦{subtotal.toLocaleString()}
-              </strong>
+              <strong>₦{subtotal.toLocaleString()}</strong>
             </p>
           </div>
 
+          {/* Coupon Section */}
+          <div className="coupon-section">
+            <input type="text" placeholder="Enter promo code" />
+            <button className="apply-btn">
+              Apply
+            </button>
+          </div>
+
+          {/* Gift Option */}
+          <div className="gift-option">
+            <input type="checkbox" id="gift" />
+            <label htmlFor="gift">
+              This order contains a gift
+            </label>
+          </div>
+
+          {/* Delivery Info */}
+          <div className="delivery-info">
+            <p>
+              Estimated delivery:{" "}
+              <strong>2 – 5 business days</strong>
+            </p>
+            <p className="shipping-note">
+              Exact shipping fees calculated at checkout
+            </p>
+          </div>
+
+          {/* Checkout Button */}
           <Link to="/checkout">
             <button className="checkout-btn">
               Proceed to Checkout
             </button>
           </Link>
+
+          <div className="secure-checkout">
+            🔒 Secure checkout guaranteed
+          </div>
+
+          <div className="return-policy">
+            <p>✅ 30-day free returns</p>
+            <p>💳 100% money-back guarantee</p>
+            <p>🔒 Payments secured by SSL</p>
+          </div>
         </div>
       )}
     </div>
   );
 }
+
