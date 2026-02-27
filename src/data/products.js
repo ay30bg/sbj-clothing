@@ -325,7 +325,7 @@ const products = [
     id: 19,
     name: "Ivory Luxe Pleated Two-Piece Set (Original Turkey)",
     price: 78000,
-    oldPrice: 15000,
+    oldPrice: 150000,
     categories: ["Women"],
     rating: 4.5,
     reviews: 12,
@@ -383,6 +383,7 @@ const products = [
   },
 ];
 export default products;
+
 
 
 
