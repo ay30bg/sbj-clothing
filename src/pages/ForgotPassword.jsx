@@ -71,7 +71,7 @@ export default function ForgotPassword() {
         </form>
 
         <div className="auth-links">
-          <p className="forgot=link">
+          <p className="forgot-password-link">
             Remember your password? <Link to="/login">Back to Sign In</Link>
           </p>
         </div>
@@ -79,5 +79,6 @@ export default function ForgotPassword() {
     </div>
   );
 }
+
 
 
