@@ -1,4 +1,6 @@
-import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 import "../styles/footer.css";
 
 const Footer = () => {
@@ -16,21 +18,27 @@ const Footer = () => {
           </p>
 
           <div className="social-icons">
-            <FaFacebookF />
-            <FaInstagram />
-            <FaTwitter />
+            <a href="#" aria-label="Facebook">
+              <FaFacebookF />
+            </a>
+            <a href="#" aria-label="Instagram">
+              <FaInstagram />
+            </a>
+            <a href="#" aria-label="X">
+              <FaXTwitter />
+            </a>
           </div>
         </div>
 
-        {/* CUSTOMER SERVICE */}
+        {/* CATEGORIES */}
         <div className="footer-section">
-          <h4>Customer Service</h4>
+          <h4>Categories</h4>
           <ul>
-            <li>Contact Us</li>
-            <li>FAQs</li>
-            <li>Shipping Policy</li>
-            <li>Returns & Refunds</li>
-            <li>Track Order</li>
+            <li><Link to="/category/men">Men</Link></li>
+            <li><Link to="/category/women">Women</Link></li>
+            <li><Link to="/category/jewelries">Jewelries</Link></li>
+            <li><Link to="/category/fabrics">Fabrics</Link></li>
+            <li><Link to="/category/shoes">Shoes</Link></li>
           </ul>
         </div>
 
@@ -38,11 +46,11 @@ const Footer = () => {
         <div className="footer-section">
           <h4>Address</h4>
           <p>
-Shop 9 Famutimi Street, Victor Fagbemi Road, <br />
+            Shop 9 Famutimi Street, Victor Fagbemi Road, <br />
             Beside Lemmy Polly Company, Aboru.
           </p>
           <p>Phone: +234 802 441 4957</p>
-          <p>Email: sbjclothing349@gmail.com</p>
+          <p>Email: info@sbjclothings.com</p>
         </div>
 
         {/* NEWSLETTER */}
@@ -66,6 +74,4 @@ Shop 9 Famutimi Street, Victor Fagbemi Road, <br />
   );
 };
 
-
 export default Footer;
-
