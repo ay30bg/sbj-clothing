@@ -1,4 +1,3 @@
-
 import image1 from "../assets/dry-lace.jpeg";
 import image2 from "../assets/swiss-3d.jpeg";
 import image3 from "../assets/swiss-handcut.jpeg";
@@ -384,6 +383,7 @@ const products = [
   },
 ];
 export default products;
+
 
 
 
