@@ -1,3 +1,4 @@
+
 import image1 from "../assets/dry-lace.jpeg";
 import image2 from "../assets/swiss-3d.jpeg";
 import image3 from "../assets/swiss-handcut.jpeg";
@@ -44,6 +45,13 @@ import image43 from "../assets/two-piece-white-turkey.jpeg";
 import image44 from "../assets/red-gucci-up-down.jpeg";
 import image45 from "../assets/white&wine-up-down.jpeg";
 import image46 from "../assets/black&white-up-down.jpeg";
+import image47 from "../assets/big-swiss-white-dry-lace1.jpeg";
+import image48 from "../assets/big-swiss-white-dry-lace2.jpeg";
+import image49 from "../assets/big-swiss-white-dry-lace3.jpeg"; 
+import image50 from "../assets/big-swiss-white-dry-lace4.jpeg";
+import image51 from "../assets/big-swiss-white-dry-lace5.jpeg";
+import image52 from "../assets/big-swiss-white-dry-lace6.jpeg";
+import image53 from "../assets/big-swiss-white-dry-lace7.jpeg";
 
 
 const products = [
@@ -325,7 +333,7 @@ const products = [
     id: 19,
     name: "Ivory Luxe Pleated Two-Piece Set (Original Turkey)",
     price: 78000,
-    oldPrice: 150000,
+    oldPrice: 15000,
     categories: ["Women"],
     rating: 4.5,
     reviews: 12,
@@ -381,10 +389,22 @@ const products = [
     sizes: ["S", "M", "L"],
     shipping: "Delivery within 3–5 days"
   },
+  {
+    id: 23,
+    name: "Premium Big Swiss White Dry Lace Fabric",
+    price: 220000,
+    oldPrice: 350000,
+    categories: ["Fabrics"],
+    rating: 4.8,
+    reviews: 10,
+    stock: 5,
+    bestSeller: true,
+    images: [image47, image48, image49, image50, image51, image52, image53],  
+    description: "An elegant, high-quality white dry lace fabric featuring bold Swiss-inspired patterns — perfect for weddings, church outfits, traditional attire, and luxury occasion wear.",
+    shipping: "Delivery within 3–5 days"
+  }
 ];
 export default products;
-
-
 
 
 
