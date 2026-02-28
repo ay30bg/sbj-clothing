@@ -121,6 +121,20 @@
   margin-top: 10px;
 }
 
+.btn-download {
+  background: black;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.btn-download:hover {
+  background: #333;
+}
+
 .btn-home {
   text-decoration: none;
   background: var(--primary);
@@ -156,4 +170,7 @@
 .order-empty .btn-home {
   margin-top: 15px;
 }
+
+
+
 
