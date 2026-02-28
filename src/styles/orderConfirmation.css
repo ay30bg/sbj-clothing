@@ -115,17 +115,23 @@
   margin-top: 10px;
 }
 
+/* Container for continue shopping button */
 .order-actions {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 20px;
+  padding: 0 10px;
 }
 
+/* Download button inside summary */
 .summary-btn {
   margin-top: 15px;
   width: 100%;
+  max-width: 400px; /* keeps it consistent with btn-home */
   padding: 12px;
   font-weight: 500;
+  display: inline-block;
+  text-align: center;
 }
 
 .order-box p {
@@ -173,6 +179,14 @@
 
 .order-empty .btn-home {
   margin-top: 15px;
+}
+
+/* Fix small mobile screens */
+@media screen and (max-width: 480px) {
+  .summary-btn {
+    padding: 10px;
+    font-size: 14px;
+  }
 }
 
 
