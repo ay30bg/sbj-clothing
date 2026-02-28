@@ -127,7 +127,6 @@
 .summary-btn {
   margin-top: 15px;
   width: 100%;
-  max-width: 400px; /* keeps it consistent with btn-home */
   padding: 12px;
   font-weight: 500;
   display: inline-block;
@@ -188,6 +187,7 @@
     font-size: 14px;
   }
 }
+
 
 
 
