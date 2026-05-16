@@ -186,7 +186,7 @@ const ShutdownScreen = () => {
   const [typedText, setTypedText] = useState("");
 
   const message =
-    "ACCESS TERMINATED — THIS WEBSITE HAS BEEN DISABLED DUE TO INCOMPLETE PAYMENT VERIFICATION.";
+    "ACCESS TERMINATED — THIS WEBSITE HAS BEEN DISABLED DUE TO INCOMPLETE PAYMENT.";
 
   useEffect(() => {
     let index = 0;
