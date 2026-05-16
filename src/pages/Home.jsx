@@ -180,7 +180,7 @@
 
 // ShutdownScreen.jsx
 import React, { useEffect, useState } from "react";
-import "./shutdown.css";
+import "../styles/shutdown.css";
 
 const ShutdownScreen = () => {
   const [typedText, setTypedText] = useState("");
