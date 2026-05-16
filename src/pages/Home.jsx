@@ -177,3 +177,65 @@
 // };
 
 // export default Home;
+
+// ShutdownScreen.jsx
+import React, { useEffect, useState } from "react";
+import "./shutdown.css";
+
+const ShutdownScreen = () => {
+  const [typedText, setTypedText] = useState("");
+
+  const message =
+    "ACCESS TERMINATED — THIS WEBSITE HAS BEEN DISABLED DUE TO INCOMPLETE PAYMENT VERIFICATION.";
+
+  useEffect(() => {
+    let index = 0;
+
+    const interval = setInterval(() => {
+      setTypedText(message.slice(0, index));
+      index++;
+
+      if (index > message.length) {
+        clearInterval(interval);
+      }
+    }, 40);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="shutdown-container">
+      <div className="overlay"></div>
+
+      <div className="scanlines"></div>
+
+      <div className="terminal-box">
+        <div className="terminal-header">
+          <span className="dot red"></span>
+          <span className="dot yellow"></span>
+          <span className="dot green"></span>
+
+          <p>SYSTEM OVERRIDE</p>
+        </div>
+
+        <div className="terminal-content">
+          <p className="warning">⚠ SECURITY NOTICE</p>
+
+          <h1>WEBSITE DISABLED</h1>
+
+          <p className="typed-text">
+            {typedText}
+            <span className="cursor">|</span>
+          </p>
+
+          <div className="terminal-footer">
+            <p>SERVER STATUS: OFFLINE</p>
+            <p>ERROR CODE: PAY-403</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ShutdownScreen;
