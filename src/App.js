@@ -120,7 +120,7 @@ function AppContent() {
   const location = useLocation();
 
   // Hide layout on auth-related pages
-  const authPages = ["/login", "/signup", "/forgot-password", "/reset-password/:token"];
+  const authPages = ["/login", "/signup", "/forgot-password", "/", "/reset-password/:token"];
   
   // ✅ Check dynamic routes for hiding layout
   const hideLayout = authPages.some((path) =>
